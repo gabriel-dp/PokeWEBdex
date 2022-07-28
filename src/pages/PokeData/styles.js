@@ -51,11 +51,11 @@ export const PokemonImage = styled.div`
 export const Name = styled.h2`
     font-size: 1.5rem;
     color: #333;
+    text-transform: uppercase;
 `;
 
 export const TypesContainer = styled.div`
     width: 100%;
-    margin-top: 1rem;
 
     display: flex;
     flex-direction: row;
@@ -73,6 +73,7 @@ export const DataText = styled.p`
     font-size: 0.875rem;
     color: #555555;
     text-align: center;
+    text-transform: capitalize;
 `;
 
 export const AbilitiesContainer = styled.div`

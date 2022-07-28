@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import TypeCard from '../../components/TypeCard';
+import typeColors from '../../utils/TypeColors';
 import {
     DataScreen,
     DataContainer,
-    OverflowContainer,
     PokemonImage,
     Name,
     TypesContainer,
@@ -14,27 +15,101 @@ import {
 } from './styles';
 
 const PokeData = () => {
+
+    const [dataAPI, setDataAPI] = useState({});
+    useEffect(() => {
+        async function fetchAsync (url) {
+            return await (await fetch(url)).json();
+        }
+        fetchAsync(`https://pokeapi.co/api/v2/pokemon/latios`).then(response => {
+            setDataAPI(response);
+        });
+    }, [setDataAPI]);
+    
+    const [pokeData, setPokeData] = useState({
+        'name': '',
+        'id': 0,
+        'types': [],
+        'abilities': {
+            'normal': [],
+            'hidden': []
+        },
+        'weight': 0,
+        'height': 0,
+        'stats': {
+            'hp': 0,
+            'atk': 0,
+            'def': 0,
+            'satk': 0,
+            'sdef': 0,
+            'spe': 0
+        }
+    });
+
+    useEffect(() => {
+        let newData = {...pokeData};
+        if (Object.keys(dataAPI).length !== 0) {
+            newData.name = dataAPI.name;
+            newData.id = dataAPI.id;
+            newData.types = [];
+            for (let i = 0; i < dataAPI.types.length; i++) {
+                newData.types.push(dataAPI.types[i].type.name);
+            }
+            newData.abilities.normal = [];
+            newData.abilities.hidden = [];
+            for (let i = 0; i < dataAPI.abilities.length; i++) {
+                let ability = dataAPI.abilities[i].ability.name;
+                let category = dataAPI.abilities[i].is_hidden ? 'hidden' : 'normal';
+                newData.abilities[category].push(ability);
+            }
+            newData.weight = dataAPI.weight/10;
+            newData.height = dataAPI.height/10;
+            Object.keys(newData.stats).forEach((stat, index) => {
+                newData.stats[stat] = dataAPI.stats[index].base_stat;
+            })
+           setPokeData(newData);
+        }
+    }, [dataAPI]);
+
     return (
-        <DataScreen colorLeft='#ff0000' colorRight='#5555ff'>
+        <DataScreen 
+            colorLeft={typeColors[pokeData.types[0]]} 
+            colorRight={typeof typeColors[pokeData.types[1]] !== 'undefined' ? typeColors[pokeData.types[1]] : typeColors[pokeData.types[0]]}
+        >
             <DataContainer>
-                <Name>Charizard</Name>
+                <Name>{pokeData.name}</Name>
                 <TypesContainer>
-                    <TypeCard title='Fire' color='#ff0000'/>
-                    <TypeCard title='Flying' color='#5555ff'/>
+                    {
+                        pokeData.types.map((index) => (
+                            <TypeCard 
+                                key={index}
+                                type={index}
+                            />
+                        ))
+                    }
                 </TypesContainer>
                 <AbilitiesContainer>
                     <DataTitle>Abilities</DataTitle>
-                    <DataText>Blaze, Levitate (hidden)</DataText>
+                    {
+                        pokeData.abilities.normal.map((ability) => (
+                            <DataText key={ability}>{ability}</DataText>
+                        ))
+                    }
+                    {
+                        pokeData.abilities.hidden.map((ability) => (
+                            <DataText key={ability}>{ability} (hidden)</DataText>
+                        ))
+                    }
                 </AbilitiesContainer>
                 <MeasuresContainer>
                     <div className='weigth'>
                         <DataTitle>Weight</DataTitle>
-                        <DataText>150kg | 300lbs</DataText>
+                        <DataText>{pokeData.weight}kg</DataText>
                     </div>
                     <VerticalLine></VerticalLine>
                     <div className='height'>
-                        <DataTitle>Heigth</DataTitle>
-                        <DataText>1.95m | 7"1'</DataText>
+                        <DataTitle>Height</DataTitle>
+                        <DataText>{pokeData.height}m</DataText>
                     </div>
                 </MeasuresContainer>
 
