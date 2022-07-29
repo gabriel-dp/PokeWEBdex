@@ -4,48 +4,61 @@ export const DataScreen = styled.div`
     height: 100vh;
     width: 100%;
     background-image: linear-gradient(110deg, ${props => (props.colorLeft + ',' + props.colorRight)});
-    position: relative;
 
     display: flex;
     flex-direction: column-reverse;
 `;
 
-export const DataContainer = styled.div`
+export const BackgroundDataContainer = styled.div`
     height: 70%;
     width: 100%;
     border-radius: 2rem 2rem 0 0;
     background-image: linear-gradient(to bottom, #f5f5f5, #dddddd);
-    padding: 3rem;
+    filter: drop-shadow(0 1rem 1rem #333);
+    overflow: hidden;
+
+    
+    ::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 3.5rem;
+        background: linear-gradient(#f5f5f5 45%, transparent);
+    }
+`;
+
+export const DataWrapper = styled.div`  
+    width: 100%;  
+    height: 100%;
     overflow: scroll;
+    scrollbar-width: none;
+    padding: 3rem 2rem 1.5rem 2rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const DataContainer = styled.div`
+    width: 100%;
+    max-width: 15rem;
+    gap: 1.25rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
-
-    filter: drop-shadow(0 1rem 1rem #333);
 `;
 
-export const PokemonImage = styled.div`
+export const ImageContainer = styled.div`
     height: 40%;
     max-height: 14rem;
     min-height: 7rem;
-    aspect-ratio: 2;
     transform: translate(0, 20%);
-    z-index: 1;
     //background-color: blue;
-    
     
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    
-    //filter: drop-shadow(0.05rem 0.05rem 0.2rem #333333);
-    
-    img {
-        height: 100%;
-        object-fit: contain;
-    }
 `;
 
 export const Name = styled.h2`
@@ -67,6 +80,7 @@ export const DataTitle = styled.h3`
     font-size: 1.125rem;
     color: #444444;
     text-align: center;
+    margin-bottom: 0.25rem;
 `;
 
 export const DataText = styled.p`

@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
+import Request from '../../utils/Request';
+
 import TypeCard from '../../components/TypeCard';
+import PokemonImage from '../../components/PokemonImage';
+import PokemonStats from '../../components/PokemonStats';
 import typeColors from '../../utils/TypeColors';
+
 import {
     DataScreen,
+    BackgroundDataContainer,
+    DataWrapper,
     DataContainer,
-    PokemonImage,
+    ImageContainer,
     Name,
     TypesContainer,
     DataTitle,
@@ -16,15 +23,7 @@ import {
 
 const PokeData = () => {
 
-    const [dataAPI, setDataAPI] = useState({});
-    useEffect(() => {
-        async function fetchAsync (url) {
-            return await (await fetch(url)).json();
-        }
-        fetchAsync(`https://pokeapi.co/api/v2/pokemon/lucario`).then(response => {
-            setDataAPI(response);
-        });
-    }, [setDataAPI]);
+    const [dataAPI] = Request('https://pokeapi.co/api/v2/pokemon/sandslash');
     
     const [pokeData, setPokeData] = useState({
         'name': '',
@@ -43,13 +42,12 @@ const PokeData = () => {
             'satk': 0,
             'sdef': 0,
             'spe': 0
-        },
-        'sprite': ''
+        }
     });
 
     useEffect(() => {
-        let newData = {...pokeData};
         if (Object.keys(dataAPI).length !== 0) {
+            let newData = {...pokeData};
             newData.name = dataAPI.name;
             newData.id = ('000' + dataAPI.id).substr(-3);
             newData.types = [];
@@ -68,7 +66,6 @@ const PokeData = () => {
             Object.keys(newData.stats).forEach((stat, index) => {
                 newData.stats[stat] = dataAPI.stats[index].base_stat;
             })
-            newData.sprite = `https://www.serebii.net/pokemon/art/${newData.id}.png`
            setPokeData(newData);
            console.log(newData)
         }
@@ -79,46 +76,53 @@ const PokeData = () => {
             colorLeft={typeColors[pokeData.types[0]]} 
             colorRight={typeof typeColors[pokeData.types[1]] !== 'undefined' ? typeColors[pokeData.types[1]] : typeColors[pokeData.types[0]]}
         >
-            <DataContainer>
-                <Name>{pokeData.name}</Name>
-                <TypesContainer>
-                    {
-                        pokeData.types.map((index) => (
-                            <TypeCard 
-                                key={index}
-                                type={index}
-                            />
-                        ))
-                    }
-                </TypesContainer>
-                <AbilitiesContainer>
-                    <DataTitle>Abilities</DataTitle>
-                    {
-                        pokeData.abilities.normal.map((ability) => (
-                            <DataText key={ability}>{ability}</DataText>
-                        ))
-                    }
-                    {
-                        pokeData.abilities.hidden.map((ability) => (
-                            <DataText key={ability}>{ability} (hidden)</DataText>
-                        ))
-                    }
-                </AbilitiesContainer>
-                <MeasuresContainer>
-                    <div className='weigth'>
-                        <DataTitle>Weight</DataTitle>
-                        <DataText>{pokeData.weight}kg</DataText>
-                    </div>
-                    <VerticalLine></VerticalLine>
-                    <div className='height'>
-                        <DataTitle>Height</DataTitle>
-                        <DataText>{pokeData.height}m</DataText>
-                    </div>
-                </MeasuresContainer>
-            </DataContainer>
-            <PokemonImage>
-                <img src={pokeData.sprite}/>
-            </PokemonImage>
+            <BackgroundDataContainer>
+                <DataWrapper>
+                    <DataContainer>
+                        <Name>{pokeData.name}</Name>
+                        <TypesContainer>
+                            {
+                                pokeData.types.map((index) => (
+                                    <TypeCard 
+                                        key={index}
+                                        type={index}
+                                    />
+                                ))
+                            }
+                        </TypesContainer>
+                        <AbilitiesContainer>
+                            <DataTitle>Abilities</DataTitle>
+                            {
+                                pokeData.abilities.normal.map((ability) => (
+                                    <DataText key={ability}>{ability}</DataText>
+                                ))
+                            }
+                            {
+                                pokeData.abilities.hidden.map((ability) => (
+                                    <DataText key={ability}>{ability} (hidden)</DataText>
+                                ))
+                            }
+                        </AbilitiesContainer>
+                        <MeasuresContainer>
+                            <div className='weigth'>
+                                <DataTitle>Weight</DataTitle>
+                                <DataText>{pokeData.weight}kg</DataText>
+                            </div>
+                            <VerticalLine></VerticalLine>
+                            <div className='height'>
+                                <DataTitle>Height</DataTitle>
+                                <DataText>{pokeData.height}m</DataText>
+                            </div>
+                        </MeasuresContainer>
+                        <PokemonStats stats={pokeData.stats}>
+                            <DataTitle className='title'>Stats</DataTitle>
+                        </PokemonStats>
+                    </DataContainer>
+                </DataWrapper>
+            </BackgroundDataContainer>
+            <ImageContainer>
+                <PokemonImage id={pokeData.id}/>
+            </ImageContainer>
         </DataScreen>
     )
 };
