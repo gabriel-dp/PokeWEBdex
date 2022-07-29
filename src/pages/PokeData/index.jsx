@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Request from '../../utils/Request';
+import Pokedex from 'pokedex-promise-v2';
 
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
@@ -21,17 +21,29 @@ import {
     VerticalLine
 } from './styles';
 
-const PokeData = () => {
+const PokeData = ({ name }) => {
 
-    const [dataAPI] = Request('https://pokeapi.co/api/v2/pokemon/sandslash');
+    const [dataAPI, setDataAPI] = useState({});
     
+    useEffect(() => {
+        const PokeAPI = new Pokedex();
+        PokeAPI.getPokemonByName(name)
+        .then((response) => {
+                //console.log(response)
+                setDataAPI(response);
+            })
+            .catch((error) => {
+                console.log('There was an ERROR: ', error);
+            });
+    }, [name]);
+
     const [pokeData, setPokeData] = useState({
-        'name': '',
         'id': 0,
+        'name': '',
         'types': [],
         'abilities': {
             'normal': [],
-            'hidden': []
+            'hidden': [],
         },
         'weight': 0,
         'height': 0,
@@ -44,37 +56,40 @@ const PokeData = () => {
             'spe': 0
         }
     });
-
+    
+    let tempData = {...pokeData};
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
-            let newData = {...pokeData};
-            newData.name = dataAPI.name;
-            newData.id = ('000' + dataAPI.id).substr(-3);
-            newData.types = [];
-            for (let i = 0; i < dataAPI.types.length; i++) {
-                newData.types.push(dataAPI.types[i].type.name);
-            }
-            newData.abilities.normal = [];
-            newData.abilities.hidden = [];
-            for (let i = 0; i < dataAPI.abilities.length; i++) {
-                let ability = dataAPI.abilities[i].ability.name;
-                let category = dataAPI.abilities[i].is_hidden ? 'hidden' : 'normal';
-                newData.abilities[category].push(ability);
-            }
-            newData.weight = dataAPI.weight/10;
-            newData.height = dataAPI.height/10;
-            Object.keys(newData.stats).forEach((stat, index) => {
-                newData.stats[stat] = dataAPI.stats[index].base_stat;
+            tempData.id = dataAPI.id;
+            tempData.name = dataAPI.name;
+
+            let firstType = dataAPI.types[0].type.name;
+            let secondType = dataAPI.types[dataAPI.types.length-1].type.name;
+            tempData.types[0] = firstType;
+            if (firstType !== secondType) tempData.types[1] = secondType;
+
+            dataAPI.abilities.forEach((ability, index) => {
+                let abia = dataAPI.abilities[index];
+                (!abia.is_hidden) 
+                ? tempData.abilities.normal.push(abia.ability.name)
+                : tempData.abilities.hidden.push(abia.ability.name)
+            });
+
+            tempData.weight = dataAPI.weight;
+            tempData.height = dataAPI.height;
+
+            Object.keys(tempData.stats).forEach((stat, index) => {
+                tempData.stats[stat] = dataAPI.stats[index].base_stat
             })
-           setPokeData(newData);
-           console.log(newData)
+
+            setPokeData(tempData);
         }
     }, [dataAPI]);
 
     return (
         <DataScreen 
             colorLeft={typeColors[pokeData.types[0]]} 
-            colorRight={typeof typeColors[pokeData.types[1]] !== 'undefined' ? typeColors[pokeData.types[1]] : typeColors[pokeData.types[0]]}
+            colorRight={typeColors[pokeData.types[0]]}
         >
             <BackgroundDataContainer>
                 <DataWrapper>
@@ -82,10 +97,10 @@ const PokeData = () => {
                         <Name>{pokeData.name}</Name>
                         <TypesContainer>
                             {
-                                pokeData.types.map((index) => (
+                                pokeData.types.map((type, index) => (
                                     <TypeCard 
                                         key={index}
-                                        type={index}
+                                        type={type}
                                     />
                                 ))
                             }
@@ -99,19 +114,19 @@ const PokeData = () => {
                             }
                             {
                                 pokeData.abilities.hidden.map((ability) => (
-                                    <DataText key={ability}>{ability} (hidden)</DataText>
+                                    <DataText key={ability}>{`${ability} (hidden)`}</DataText>
                                 ))
                             }
                         </AbilitiesContainer>
                         <MeasuresContainer>
                             <div className='weigth'>
                                 <DataTitle>Weight</DataTitle>
-                                <DataText>{pokeData.weight}kg</DataText>
+                                <DataText>{(pokeData.weight)/10}kg</DataText>
                             </div>
                             <VerticalLine></VerticalLine>
                             <div className='height'>
                                 <DataTitle>Height</DataTitle>
-                                <DataText>{pokeData.height}m</DataText>
+                                <DataText>{(pokeData.height)/10}m</DataText>
                             </div>
                         </MeasuresContainer>
                         <PokemonStats stats={pokeData.stats}>

@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <PokeData/>
+      <PokeData name='vaporeon'/>
     </>
   );
 }
