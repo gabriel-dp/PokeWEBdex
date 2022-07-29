@@ -13,7 +13,7 @@ export const DataScreen = styled.div`
 export const DataContainer = styled.div`
     height: 70%;
     width: 100%;
-    border-radius: 1.5rem 1.5rem 0 0;
+    border-radius: 2rem 2rem 0 0;
     background-image: linear-gradient(to bottom, #f5f5f5, #dddddd);
     padding: 3rem;
     overflow: scroll;
@@ -28,20 +28,20 @@ export const DataContainer = styled.div`
 
 export const PokemonImage = styled.div`
     height: 40%;
-    max-height: 12rem;
+    max-height: 14rem;
     min-height: 7rem;
     aspect-ratio: 2;
-    //background-color: blue;
-
-    transform: translate(0, 25%);
+    transform: translate(0, 20%);
     z-index: 1;
+    //background-color: blue;
+    
     
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-
-    filter: drop-shadow(0 0 0.25rem #333333aa);
-
+    
+    //filter: drop-shadow(0.05rem 0.05rem 0.2rem #333333);
+    
     img {
         height: 100%;
         object-fit: contain;

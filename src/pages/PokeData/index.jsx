@@ -21,7 +21,7 @@ const PokeData = () => {
         async function fetchAsync (url) {
             return await (await fetch(url)).json();
         }
-        fetchAsync(`https://pokeapi.co/api/v2/pokemon/latios`).then(response => {
+        fetchAsync(`https://pokeapi.co/api/v2/pokemon/lucario`).then(response => {
             setDataAPI(response);
         });
     }, [setDataAPI]);
@@ -43,14 +43,15 @@ const PokeData = () => {
             'satk': 0,
             'sdef': 0,
             'spe': 0
-        }
+        },
+        'sprite': ''
     });
 
     useEffect(() => {
         let newData = {...pokeData};
         if (Object.keys(dataAPI).length !== 0) {
             newData.name = dataAPI.name;
-            newData.id = dataAPI.id;
+            newData.id = ('000' + dataAPI.id).substr(-3);
             newData.types = [];
             for (let i = 0; i < dataAPI.types.length; i++) {
                 newData.types.push(dataAPI.types[i].type.name);
@@ -67,7 +68,9 @@ const PokeData = () => {
             Object.keys(newData.stats).forEach((stat, index) => {
                 newData.stats[stat] = dataAPI.stats[index].base_stat;
             })
+            newData.sprite = `https://www.serebii.net/pokemon/art/${newData.id}.png`
            setPokeData(newData);
+           console.log(newData)
         }
     }, [dataAPI]);
 
@@ -112,10 +115,9 @@ const PokeData = () => {
                         <DataText>{pokeData.height}m</DataText>
                     </div>
                 </MeasuresContainer>
-
             </DataContainer>
             <PokemonImage>
-                <img src='https://www.serebii.net/swordshield/pokemon/006.png'/>
+                <img src={pokeData.sprite}/>
             </PokemonImage>
         </DataScreen>
     )

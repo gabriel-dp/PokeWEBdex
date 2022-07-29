@@ -7,6 +7,7 @@ export const Card = styled.div`
     max-width: 8rem;
     aspect-ratio: 5;
     border-radius: 10%/50%;
+    overflow: hidden;
 
     display: flex;
     flex-direction: row;
