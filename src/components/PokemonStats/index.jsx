@@ -54,11 +54,8 @@ const PokemonStats = ({ stats, children }) => {
                         <StatBar>
                             <StatFill 
                                 data-hover={stats[index].value}
-                                percentage={
-                                    (stats[index].value === 'hp')
-                                    ? stats[index].value*100/255 
-                                    : stats[index].value*100/180}
-                                />
+                                percentage={(stats[index].value*100/180)}
+                            />
                         </StatBar>
                     </UniqueStatContainer>
                 ))

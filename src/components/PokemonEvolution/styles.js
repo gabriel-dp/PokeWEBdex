@@ -37,7 +37,7 @@ export const PokemonName = styled.p`
     text-transform: capitalize;
     font-size: 1rem;
     color: #444;
-    margin-left: 0.75rem;
+    margin-left: 0.5rem;
 
     font-weight: ${props => props.is_original ? 'bold' : 'auto'};
 `;

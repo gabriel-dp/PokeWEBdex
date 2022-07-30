@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LightenDarkenColor } from 'lighten-darken-color'; 
 
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
@@ -108,7 +109,7 @@ const PokeData = ({ pokedex, name }) => {
     return (
         <DataScreen 
             colorLeft={typeColors[pokeData.types[0]]} 
-            colorRight={typeColors[pokeData.types[pokeData.types.length-1]]}
+            colorRight={LightenDarkenColor(typeColors[pokeData.types[pokeData.types.length-1]], -30)}
         >
             <BackgroundDataContainer>
                 <DataWrapper>
