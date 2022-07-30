@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Pokedex from 'pokedex-promise-v2';
 
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
@@ -21,21 +20,19 @@ import {
     VerticalLine
 } from './styles';
 
-const PokeData = ({ name }) => {
+const PokeData = ({ pokedex, name }) => {
 
     const [dataAPI, setDataAPI] = useState({});
     
     useEffect(() => {
-        const PokeAPI = new Pokedex();
-        PokeAPI.getPokemonByName(name)
-        .then((response) => {
-                //console.log(response)
+        pokedex.getPokemonByName(name, (response, error) => {
+            if(!error) {
                 setDataAPI(response);
-            })
-            .catch((error) => {
-                console.log('There was an ERROR: ', error);
-            });
-    }, [name]);
+            } else {
+                console.log(error)
+            }
+        });
+    }, [pokedex, name]);
 
     const [pokeData, setPokeData] = useState({
         'id': 0,
@@ -64,10 +61,11 @@ const PokeData = ({ name }) => {
             tempData.name = dataAPI.name;
 
             let firstType = dataAPI.types[0].type.name;
-            let secondType = dataAPI.types[dataAPI.types.length-1].type.name;
+            let lastType = dataAPI.types[dataAPI.types.length-1].type.name;
             tempData.types[0] = firstType;
-            if (firstType !== secondType) tempData.types[1] = secondType;
+            if (firstType !== lastType) tempData.types[1] = lastType;
 
+            tempData.abilities = {'normal': [], 'hidden': []};
             dataAPI.abilities.forEach((ability, index) => {
                 let abia = dataAPI.abilities[index];
                 (!abia.is_hidden) 
