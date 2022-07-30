@@ -18,7 +18,8 @@ import {
     DataText,
     AbilitiesContainer,
     MeasuresContainer,
-    VerticalLine
+    VerticalLine,
+    HorizontalLine
 } from './styles';
 
 const PokeData = ({ pokedex, name }) => {
@@ -147,9 +148,11 @@ const PokeData = ({ pokedex, name }) => {
                                 <DataText>{(pokeData.height)/10}m</DataText>
                             </div>
                         </MeasuresContainer>
+                        <HorizontalLine/>
                         <PokemonStats stats={pokeData.stats}>
                             <DataTitle className='title'>Stats</DataTitle>
                         </PokemonStats>
+                        <HorizontalLine/>
                         <PokemonEvolution pokedex={pokedex} name={pokeData.name}>
                             <DataTitle className='title'>Evolution Chain</DataTitle>
                         </PokemonEvolution>

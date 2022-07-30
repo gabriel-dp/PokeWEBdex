@@ -4,8 +4,8 @@ import styled from 'styled-components';
 export const Card = styled.div`
     background-color: ${props => props.color};
     width: 50%;
-    height: 1.8rem;
-    border-radius: 10%/50%;
+    height: 1.5rem;
+    border-radius: 10rem;
     overflow: hidden;
 
     display: flex;
@@ -16,6 +16,7 @@ export const Card = styled.div`
 
 export const TypeTitle = styled.p`
     color: white;
+    font-size: 0.75rem;
     font-weight: bold;
     text-transform: capitalize;
     text-shadow: 1px 1px #00000055;

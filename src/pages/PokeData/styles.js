@@ -48,7 +48,7 @@ export const DataWrapper = styled.div`
 export const DataContainer = styled.div`
     width: 100%;
     max-width: 15rem;
-    gap: 1.5rem;
+    gap: 1.25rem;
 
     display: flex;
     flex-direction: column;
@@ -128,4 +128,10 @@ export const VerticalLine = styled.div.attrs({
 })`
     height: 100%;
     border-left: 2px #aaaaaa solid;
+`;
+
+export const HorizontalLine = styled.hr`
+    width: 125%;
+    border: none;
+    border-top: 1px #aaa     solid;
 `;
