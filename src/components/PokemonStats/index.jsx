@@ -6,6 +6,7 @@ export const StatsContainer = styled.div`
 
     display: flex;
     flex-direction: column;
+    //user-select: none;
 `;
 
 export const UniqueStatContainer = styled.div`
@@ -45,13 +46,19 @@ const PokemonStats = ({ stats, children }) => {
         <StatsContainer>
             { children }
             {
-                Object.keys(stats).map((stat) => (
-                    <UniqueStatContainer key={stat}>
+                stats.map((stat, index) => (
+                    <UniqueStatContainer key={stats[index].name}>
                         <StatCategory>
-                            <h5>{stat}</h5>
+                            <h5>{stats[index].name}</h5>
                         </StatCategory>
                         <StatBar>
-                            <StatFill percentage={stat === 'hp' ? stats['hp']*100/255 : stats[stat]*100/180}/>
+                            <StatFill 
+                                data-hover={stats[index].value}
+                                percentage={
+                                    (stats[index].value === 'hp')
+                                    ? stats[index].value*100/255 
+                                    : stats[index].value*100/180}
+                                />
                         </StatBar>
                     </UniqueStatContainer>
                 ))

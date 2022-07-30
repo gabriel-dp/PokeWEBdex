@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Card = styled.div`
     background-color: ${props => props.color};
     width: 50%;
-    aspect-ratio: 6;
+    height: 1.8rem;
     border-radius: 10%/50%;
     overflow: hidden;
 

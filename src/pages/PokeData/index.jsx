@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
 import PokemonStats from '../../components/PokemonStats';
+import PokemonEvolution from '../../components/PokemonEvolution';
 import typeColors from '../../utils/TypeColors';
 
 import {
@@ -44,22 +45,41 @@ const PokeData = ({ pokedex, name }) => {
         },
         'weight': 0,
         'height': 0,
-        'stats': {
-            'hp': 0,
-            'atk': 0,
-            'def': 0,
-            'satk': 0,
-            'sdef': 0,
-            'spe': 0
-        }
+        'stats': [
+            {
+                'name': 'hp',
+                'value': 0
+            },
+            {
+                'name': 'atk',
+                'value': 0
+            },
+            {
+                'name': 'def',
+                'value': 0
+            },
+            {
+                'name': 'satk',
+                'value': 0
+            },
+            {
+                'name': 'sdef',
+                'value': 0
+            },
+            {
+                'name': 'spe',
+                'value': 0
+            },
+        ]
     });
     
-    let tempData = {...pokeData};
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
+            let tempData = {...pokeData};
             tempData.id = dataAPI.id;
             tempData.name = dataAPI.name;
-
+            
+            tempData.types = [];
             let firstType = dataAPI.types[0].type.name;
             let lastType = dataAPI.types[dataAPI.types.length-1].type.name;
             tempData.types[0] = firstType;
@@ -76,8 +96,8 @@ const PokeData = ({ pokedex, name }) => {
             tempData.weight = dataAPI.weight;
             tempData.height = dataAPI.height;
 
-            Object.keys(tempData.stats).forEach((stat, index) => {
-                tempData.stats[stat] = dataAPI.stats[index].base_stat
+            dataAPI.stats.forEach((stat, index) => {
+                tempData.stats[index].value = dataAPI.stats[index].base_stat;
             })
 
             setPokeData(tempData);
@@ -87,7 +107,7 @@ const PokeData = ({ pokedex, name }) => {
     return (
         <DataScreen 
             colorLeft={typeColors[pokeData.types[0]]} 
-            colorRight={typeColors[pokeData.types[0]]}
+            colorRight={typeColors[pokeData.types[pokeData.types.length-1]]}
         >
             <BackgroundDataContainer>
                 <DataWrapper>
@@ -130,6 +150,9 @@ const PokeData = ({ pokedex, name }) => {
                         <PokemonStats stats={pokeData.stats}>
                             <DataTitle className='title'>Stats</DataTitle>
                         </PokemonStats>
+                        <PokemonEvolution pokedex={pokedex} name={pokeData.name}>
+                            <DataTitle className='title'>Evolution Chain</DataTitle>
+                        </PokemonEvolution>
                     </DataContainer>
                 </DataWrapper>
             </BackgroundDataContainer>

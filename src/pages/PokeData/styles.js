@@ -31,19 +31,24 @@ export const BackgroundDataContainer = styled.div`
 export const DataWrapper = styled.div`  
     width: 100%;  
     height: 100%;
-    overflow: scroll;
-    scrollbar-width: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding: 3rem 2rem 1.5rem 2rem;
     
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const DataContainer = styled.div`
     width: 100%;
     max-width: 15rem;
-    gap: 1.25rem;
+    gap: 1.5rem;
 
     display: flex;
     flex-direction: column;
@@ -55,6 +60,7 @@ export const ImageContainer = styled.div`
     max-height: 14rem;
     min-height: 7rem;
     transform: translate(0, 20%);
+    padding: 0 1rem;
     //background-color: blue;
     
     display: flex;

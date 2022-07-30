@@ -7,9 +7,16 @@ export const PokeImage = styled.img`
 `;
 
 const PokemonImage = ({ id }) => {
+    let fixedID = ('000'+id).slice(-3);
+    let renderComponent = (id)
+        ? <PokeImage src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fixedID}.png`}/> 
+        : <></>
+
     return (
-        <PokeImage src={`https://www.serebii.net/pokemon/art/${id}.png`}/>
+        <>
+            {renderComponent}
+        </>
     )
 }
 
-export default PokemonImage
+export default PokemonImage;
