@@ -85,11 +85,11 @@ const PokeData = ({ pokedex, name }) => {
             if (firstType !== lastType) tempData.types[1] = lastType;
 
             tempData.abilities = [];
-            dataAPI.abilities.forEach((ability, index) => {
+            dataAPI.abilities.forEach((raw_ability) => {
                 let object = {
-                    'name': dataAPI.abilities[index].ability.name,
+                    'name': raw_ability.ability.name,
                     'description': '',
-                    'is_hidden': dataAPI.abilities[index].is_hidden
+                    'is_hidden': raw_ability.is_hidden
                 }
                 tempData.abilities.push(object);
             });
@@ -98,7 +98,7 @@ const PokeData = ({ pokedex, name }) => {
             tempData.height = dataAPI.height;
 
             dataAPI.stats.forEach((stat, index) => {
-                tempData.stats[index].value = dataAPI.stats[index].base_stat;
+                tempData.stats[index].value = stat.base_stat;
             })
 
             setPokeData(tempData);

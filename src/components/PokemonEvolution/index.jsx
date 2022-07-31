@@ -5,7 +5,8 @@ import {
     PokemonContainer,
     ImageContainer,
     Arrow,
-    PokemonName
+    PokemonName,
+    NotEvolvesText
 } from './styles';
 
 function getIdByUrl (url) {
@@ -77,12 +78,16 @@ const PokemonEvolution = ({ pokedex, name, children }) => {
     return (
         <EvolutionsContainer>
             {children}
-            <RecursiveEvolution 
-                id={getIdByUrl(dataAPI.chain.species.url)} 
-                name={dataAPI.chain.species.name} 
-                evolves_to={dataAPI.chain.evolves_to}
-                original={name}
-            />
+            {
+                (dataAPI.chain.evolves_to).length !== 0 
+                ? <RecursiveEvolution 
+                    id={getIdByUrl(dataAPI.chain.species.url)} 
+                    name={dataAPI.chain.species.name} 
+                    evolves_to={dataAPI.chain.evolves_to}
+                    original={name}
+                />
+                : <NotEvolvesText>This Pokémon does not evolve.</NotEvolvesText>
+            }
         </EvolutionsContainer>
     )
 }

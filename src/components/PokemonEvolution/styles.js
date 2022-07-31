@@ -41,3 +41,8 @@ export const PokemonName = styled.p`
 
     font-weight: ${props => props.is_original ? 'bold' : 'auto'};
 `;
+
+export const NotEvolvesText = styled.p`
+    font-size: 0.8rem;
+    color: #555;
+`;
