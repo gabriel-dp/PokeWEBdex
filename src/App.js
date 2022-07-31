@@ -1,14 +1,13 @@
+import { BrowserRouter, Route } from 'react-router-dom';
 import GlobalStyle from './styles/global';
-import Pokedex from 'pokedex-promise-v2';
 import PokeData from './pages/PokeData';
 
 function App() {
-  const PokeAPI = new Pokedex();
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyle/>
-      <PokeData pokedex={PokeAPI} name='persian'/>
-    </>
+      <Route path='/pokemon/:name' component={PokeData}/>
+    </BrowserRouter>
   );
 }
 

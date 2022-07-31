@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import Pokedex from 'pokedex-promise-v2';
 import { LightenDarkenColor } from 'lighten-darken-color'; 
 
 import TypeCard from '../../components/TypeCard';
@@ -23,10 +25,12 @@ import {
     HorizontalLine
 } from './styles';
 
-const PokeData = ({ pokedex, name }) => {
+const PokeData = () => {
+
+    const { name } = useParams();
+    const pokedex = useMemo(() => new Pokedex(), []);
 
     const [dataAPI, setDataAPI] = useState({});
-    
     useEffect(() => {
         pokedex.getPokemonByName(name, (response, error) => {
             if(!error) {
@@ -37,7 +41,7 @@ const PokeData = ({ pokedex, name }) => {
         });
     }, [pokedex, name]);
 
-    const [pokeData, setPokeData] = useState({
+    const defaultData = useMemo(() => ({
         'id': 0,
         'name': '',
         'types': [],
@@ -70,11 +74,12 @@ const PokeData = ({ pokedex, name }) => {
                 'value': 0
             },
         ]
-    });
+    }), []);
     
+    const [pokeData, setPokeData] = useState(defaultData);
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
-            let tempData = {...pokeData};
+            let tempData = {...defaultData};
             tempData.id = dataAPI.id;
             tempData.name = dataAPI.name;
             
@@ -103,7 +108,7 @@ const PokeData = ({ pokedex, name }) => {
 
             setPokeData(tempData);
         }
-    }, [dataAPI]);
+    }, [dataAPI, defaultData]);
 
     return (
         <DataScreen 
