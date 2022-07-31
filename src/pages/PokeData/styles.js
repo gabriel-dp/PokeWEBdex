@@ -96,11 +96,6 @@ export const DataText = styled.p`
     text-transform: capitalize;
 `;
 
-export const AbilitiesContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
 export const MeasuresContainer = styled.div`
     width: 100%;
     display: flex;

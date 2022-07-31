@@ -3,6 +3,7 @@ import { LightenDarkenColor } from 'lighten-darken-color';
 
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
+import PokemonAbilities from '../../components/PokemonAbilities';
 import PokemonStats from '../../components/PokemonStats';
 import PokemonEvolution from '../../components/PokemonEvolution';
 import typeColors from '../../utils/TypeColors';
@@ -17,7 +18,6 @@ import {
     TypesContainer,
     DataTitle,
     DataText,
-    AbilitiesContainer,
     MeasuresContainer,
     VerticalLine,
     HorizontalLine
@@ -41,10 +41,7 @@ const PokeData = ({ pokedex, name }) => {
         'id': 0,
         'name': '',
         'types': [],
-        'abilities': {
-            'normal': [],
-            'hidden': [],
-        },
+        'abilities': [],
         'weight': 0,
         'height': 0,
         'stats': [
@@ -87,12 +84,14 @@ const PokeData = ({ pokedex, name }) => {
             tempData.types[0] = firstType;
             if (firstType !== lastType) tempData.types[1] = lastType;
 
-            tempData.abilities = {'normal': [], 'hidden': []};
+            tempData.abilities = [];
             dataAPI.abilities.forEach((ability, index) => {
-                let abia = dataAPI.abilities[index];
-                (!abia.is_hidden) 
-                ? tempData.abilities.normal.push(abia.ability.name)
-                : tempData.abilities.hidden.push(abia.ability.name)
+                let object = {
+                    'name': dataAPI.abilities[index].ability.name,
+                    'description': '',
+                    'is_hidden': dataAPI.abilities[index].is_hidden
+                }
+                tempData.abilities.push(object);
             });
 
             tempData.weight = dataAPI.weight;
@@ -125,19 +124,6 @@ const PokeData = ({ pokedex, name }) => {
                                 ))
                             }
                         </TypesContainer>
-                        <AbilitiesContainer>
-                            <DataTitle>Abilities</DataTitle>
-                            {
-                                pokeData.abilities.normal.map((ability) => (
-                                    <DataText key={ability}>{ability}</DataText>
-                                ))
-                            }
-                            {
-                                pokeData.abilities.hidden.map((ability) => (
-                                    <DataText key={ability}>{`${ability} (hidden)`}</DataText>
-                                ))
-                            }
-                        </AbilitiesContainer>
                         <MeasuresContainer>
                             <div className='weigth'>
                                 <DataTitle>Weight</DataTitle>
@@ -149,6 +135,10 @@ const PokeData = ({ pokedex, name }) => {
                                 <DataText>{(pokeData.height)/10}m</DataText>
                             </div>
                         </MeasuresContainer>
+                        <HorizontalLine/>
+                        <PokemonAbilities pokedex={pokedex} abilities={pokeData.abilities}>
+                            <DataTitle>Abilities</DataTitle>
+                        </PokemonAbilities>
                         <HorizontalLine/>
                         <PokemonStats stats={pokeData.stats}>
                             <DataTitle className='title'>Stats</DataTitle>

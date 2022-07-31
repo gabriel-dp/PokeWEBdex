@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <PokeData pokedex={PokeAPI} name='mewtwo'/>
+      <PokeData pokedex={PokeAPI} name='palkia'/>
     </>
   );
 }
