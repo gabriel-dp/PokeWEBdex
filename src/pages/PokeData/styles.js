@@ -68,7 +68,7 @@ export const ImageContainer = styled.div`
     flex-direction: column;
 `;
 
-export const Name = styled.h2`
+export const NameText = styled.h2`
     font-size: 1.5rem;
     color: #333;
     text-transform: uppercase;

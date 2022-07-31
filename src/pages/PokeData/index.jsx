@@ -16,7 +16,7 @@ import {
     DataWrapper,
     DataContainer,
     ImageContainer,
-    Name,
+    NameText,
     TypesContainer,
     DataTitle,
     DataText,
@@ -119,7 +119,10 @@ const PokeData = () => {
             <BackgroundDataContainer>
                 <DataWrapper>
                     <DataContainer>
-                        <Name>{pokeData.name}</Name>
+                        <div>
+                            <NameText>{pokeData.name}</NameText>
+                            <DataText>#{('000'+pokeData.id).slice(-3)}</DataText>
+                        </div>
                         <TypesContainer>
                             {
                                 pokeData.types.map((type, index) => (

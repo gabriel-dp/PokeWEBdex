@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import PokemonImage from '../PokemonImage';
 import {
     EvolutionsContainer,
@@ -25,10 +27,14 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
                 {
                     stage > 0 ? <Arrow stage={stage}/> : ''
                 }
-                <ImageContainer is_original={is_original}>
-                    <PokemonImage id={id}/>
-                </ImageContainer>
-                <PokemonName is_original={is_original}>{name}</PokemonName>
+                <Link to={`${name}`}>
+                    <ImageContainer is_original={is_original}>
+                        <PokemonImage id={id}/>
+                    </ImageContainer>
+                </Link>
+                <Link to={`${name}`}>
+                    <PokemonName is_original={is_original}>{name}</PokemonName>
+                </Link>
             </PokemonContainer>
             { 
                 evolves_to && evolves_to.map((evolution) => (
