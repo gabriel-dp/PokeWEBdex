@@ -25,7 +25,6 @@ export const AbilityName = styled.p`
     color: #555555;
     text-align: center;
     text-transform: capitalize;
-    position: relative;
 `;
 
 export const DataHover = styled.div.attrs({

@@ -25,6 +25,7 @@ export const BackgroundDataContainer = styled.div`
         width: 100%;
         height: 3.5rem;
         background: linear-gradient(#f5f5f5 45%, transparent);
+        z-index: 2;
     }
 `;
 
