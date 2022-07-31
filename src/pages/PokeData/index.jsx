@@ -27,19 +27,20 @@ import {
 
 const PokeData = () => {
 
-    const { name } = useParams();
+    const { nameORid } = useParams();
     const pokedex = useMemo(() => new Pokedex(), []);
 
     const [dataAPI, setDataAPI] = useState({});
     useEffect(() => {
-        pokedex.getPokemonByName(name, (response, error) => {
+        let search = (/^\d+$/.test(nameORid)) ? parseInt(nameORid) : nameORid;
+        pokedex.getPokemonByName(search, (response, error) => {
             if(!error) {
                 setDataAPI(response);
             } else {
                 console.log(error)
             }
         });
-    }, [pokedex, name]);
+    }, [pokedex, nameORid]);
 
     const defaultData = useMemo(() => ({
         'id': 0,

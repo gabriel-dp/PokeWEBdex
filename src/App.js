@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle/>
-      <Route path='/pokemon/:name' component={PokeData}/>
+      <Route path='/pokemon/:nameORid' component={PokeData}/>
     </BrowserRouter>
   );
 }
