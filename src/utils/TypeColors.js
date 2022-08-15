@@ -16,7 +16,7 @@ const typeColors = {
     'ghost': '#705898',
     'steel': '#b8b8d0',
     'dragon': '#7038f8',
-    'fairy': '#ffaec9',
+    'fairy': '#ff93b5',
     'undefined': '#ffffff'
 }
 

@@ -19,8 +19,8 @@ export const TypeTitle = styled.p`
     font-size: 0.75rem;
     font-weight: bold;
     text-transform: capitalize;
-    text-shadow: 1px 1px #00000055;
     user-select: none;
+   text-shadow: -1px -1px 0 #00000033, 1px -1px 0 #00000033, -1px 1px 0 #00000033, 1px 1px 0 #00000033;
 `;
 
 
