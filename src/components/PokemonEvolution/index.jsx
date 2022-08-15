@@ -52,7 +52,7 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const PokemonEvolution = ({ pokedex, name, children }) => {
+const PokemonEvolution = ({ pokedexAPI, name, children }) => {
 
     const [dataAPI, setDataAPI] = useState({
         'chain': {
@@ -65,9 +65,9 @@ const PokemonEvolution = ({ pokedex, name, children }) => {
 
     useEffect(() => {
         if (name !== '') {
-            pokedex.getPokemonSpeciesByName(name, (response, error) => {
+            pokedexAPI.getPokemonSpeciesByName(name, (response, error) => {
                 if(!error) {
-                    pokedex.getEvolutionChainById(getIdByUrl(response.evolution_chain.url), (response2, error2) => {
+                    pokedexAPI.getEvolutionChainById(getIdByUrl(response.evolution_chain.url), (response2, error2) => {
                         if (!error2) {
                             setDataAPI(response2);
                         } else {
@@ -79,7 +79,7 @@ const PokemonEvolution = ({ pokedex, name, children }) => {
                 }
             });
         }
-    }, [pokedex, name]);
+    }, [pokedexAPI, name]);
 
     return (
         <EvolutionsContainer>

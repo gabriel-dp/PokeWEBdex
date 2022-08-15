@@ -28,19 +28,19 @@ import {
 const PokeData = () => {
 
     const { nameORid } = useParams();
-    const pokedex = useMemo(() => new Pokedex(), []);
+    const pokedexAPI = useMemo(() => new Pokedex(), []);
 
     const [dataAPI, setDataAPI] = useState({});
     useEffect(() => {
         let search = (/^\d+$/.test(nameORid)) ? parseInt(nameORid) : nameORid;
-        pokedex.getPokemonByName(search, (response, error) => {
+        pokedexAPI.getPokemonByName(search, (response, error) => {
             if(!error) {
                 setDataAPI(response);
             } else {
                 console.log(error)
             }
         });
-    }, [pokedex, nameORid]);
+    }, [pokedexAPI, nameORid]);
 
     const defaultData = useMemo(() => ({
         'id': 0,
@@ -145,7 +145,7 @@ const PokeData = () => {
                             </div>
                         </MeasuresContainer>
                         <HorizontalLine/>
-                        <PokemonAbilities pokedex={pokedex} abilities={pokeData.abilities}>
+                        <PokemonAbilities pokedexAPI={pokedexAPI} abilities={pokeData.abilities}>
                             <DataTitle>Abilities</DataTitle>
                         </PokemonAbilities>
                         <HorizontalLine/>
@@ -153,7 +153,7 @@ const PokeData = () => {
                             <DataTitle className='title'>Stats</DataTitle>
                         </PokemonStats>
                         <HorizontalLine/>
-                        <PokemonEvolution pokedex={pokedex} name={pokeData.name}>
+                        <PokemonEvolution pokedexAPI={pokedexAPI} name={pokeData.name}>
                             <DataTitle className='title'>Evolution Chain</DataTitle>
                         </PokemonEvolution>
                     </DataContainer>

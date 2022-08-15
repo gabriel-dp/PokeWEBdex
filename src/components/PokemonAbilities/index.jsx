@@ -6,11 +6,11 @@ import {
     DataHover
 } from './styles';
 
-const PokemonAbilities = ({ pokedex, abilities, children }) => {
+const PokemonAbilities = ({ pokedexAPI, abilities, children }) => {
 
     const [abilitiesData, setAbilitiesData] = useState([]);
     useEffect(() => {
-        pokedex.getAbilityByName(abilities.map(ability => ability.name), (response, error) => {
+        pokedexAPI.getAbilityByName(abilities.map(ability => ability.name), (response, error) => {
             if(!error) {
                 let tempData = abilities;
                 tempData.forEach((ability, index) => {
@@ -22,7 +22,7 @@ const PokemonAbilities = ({ pokedex, abilities, children }) => {
                 console.log(error);
             }
         });
-    }, [pokedex, abilities]);
+    }, [pokedexAPI, abilities]);
 
     return (
         <AbilitiesContainer>
