@@ -13,10 +13,10 @@ export const PokedexScreen = styled.div`
 
 export const CardsContainer = styled.div`
     width: 100%;
-    max-width: 60rem;
-    padding: 1rem 2rem;
+    max-width: 55rem;
+    padding: 1rem;
     
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     gap: 1rem;
 `;

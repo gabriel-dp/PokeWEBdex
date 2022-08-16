@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const CardContainer = styled.div`
     height: 12rem;
     width: 100%;
+    padding: 0 1rem;
     max-width: 25rem;
-    background-color: #ddd;
+    background-color: #ccc;
     border-radius: 0.75rem;
     overflow: hidden;
     cursor: pointer;
@@ -27,7 +28,7 @@ export const CardContainer = styled.div`
     }
     
     :hover {
-        background: linear-gradient(135deg, #cc1100, #8b0000) border-box;
+        background: linear-gradient(135deg, #cc1100, #8b0000);
         filter: drop-shadow(0 0 0.25rem #00000055);
 
         p {
@@ -61,7 +62,7 @@ export const DataContainer = styled.div`
 
 export const PokemonName = styled.p`
     font-size: 0.85rem;
-    color: #333;
+    color: #222;
     font-weight: 600;
     text-transform: uppercase;
     z-index: 1;
