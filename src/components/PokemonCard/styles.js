@@ -5,7 +5,7 @@ export const CardContainer = styled.div`
     width: 100%;
     padding: 0 1rem;
     max-width: 25rem;
-    background-color: #ccc;
+    background-color: #c5c5c5;
     border-radius: 0.75rem;
     overflow: hidden;
     cursor: pointer;
@@ -13,23 +13,10 @@ export const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-
-    ::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        border-radius: 0.75rem; 
-        border: 0.2rem solid transparent;  //8rem to fill
-        background: linear-gradient(135deg, #cc1100, #8b0000) border-box;
-        mask:
-        linear-gradient(#fff 0 0) padding-box, 
-        linear-gradient(#fff 0 0);
-        mask-composite: exclude;
-    }
     
     :hover {
         background: linear-gradient(135deg, #cc1100, #8b0000);
-        filter: drop-shadow(0 0 0.25rem #00000055);
+        filter: drop-shadow(0 0 0.5rem #00000055);
 
         p {
             color: #fff;
