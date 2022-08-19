@@ -32,7 +32,7 @@ export const DataHover = styled.div.attrs({
 })`
     height: 1.35rem;
     width: 125%;
-    overflow: scroll;
+    overflow-y: scroll;
     
     opacity: 0;
     transition: all 0.25s ease;
@@ -45,9 +45,16 @@ export const DataHover = styled.div.attrs({
     left: 50%;
     transform: translate(-50%, -100%);
 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
     p {
         color: #fff;
         font-size: 0.75rem;
         text-align: center;
     }
+
 `;
