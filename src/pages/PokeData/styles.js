@@ -16,7 +16,7 @@ export const BackgroundDataContainer = styled.div`
     background-image: linear-gradient(to bottom, #f5f5f5, #dddddd);
     filter: drop-shadow(0 1rem 1rem #333);
     overflow: hidden;
-
+    z-index: ${props => props.isLoading ? '-1' : '1'};
     
     ::before {
         content: '';
@@ -62,7 +62,7 @@ export const ImageContainer = styled.div`
     min-height: 7rem;
     transform: translate(0, 20%);
     padding: 0 1rem;
-    //background-color: blue;
+    z-index: 2;
     
     display: flex;
     flex-direction: column;

@@ -116,7 +116,7 @@ const PokeData = () => {
             colorLeft={typeColors[pokeData.types[0]]} 
             colorRight={LightenDarkenColor(typeColors[pokeData.types[pokeData.types.length-1]], -30)}
         >
-            <BackgroundDataContainer>
+            <BackgroundDataContainer isLoading={(Object.keys(dataAPI).length === 0)}>
                 <DataWrapper>
                     <DataContainer>
                         <div>
