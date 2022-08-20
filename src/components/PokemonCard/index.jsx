@@ -9,9 +9,9 @@ import {
     PokemonName
 } from './styles';
 
-const PokemonCard = ({ id, name, types }) => {
+const PokemonCard = ({ id, name}) => {
     return (
-        <CardContainer color1={typeColors[types[0]]} color2={typeColors[types[types.length-1]]}>
+        <CardContainer>
             <Link to={`pokemon/${name}`}>
                 <ImageContainer>
                     <PokemonImage id={id}/>

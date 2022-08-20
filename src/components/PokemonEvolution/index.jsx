@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import getIdByUrl from '../../utils/getIdByUrl';
 
 import PokemonImage from '../PokemonImage';
 import {
@@ -10,14 +11,6 @@ import {
     PokemonName,
     NotEvolvesText
 } from './styles';
-
-function getIdByUrl (url) {
-    if (url) {
-        const urlStart = 'https://pokeapi.co/api/v2/';
-        const id = (url).replace(urlStart, '').match(/\d+/)[0];
-        return id;
-    }
-}
 
 const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     const is_original = (original === name);

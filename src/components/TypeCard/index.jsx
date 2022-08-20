@@ -20,7 +20,7 @@ export const TypeTitle = styled.p`
     font-weight: bold;
     text-transform: capitalize;
     user-select: none;
-   text-shadow: -1px -1px 0 #00000033, 1px -1px 0 #00000033, -1px 1px 0 #00000033, 1px 1px 0 #00000033;
+    text-shadow: -1px -1px 0 #00000033, 1px -1px 0 #00000033, -1px 1px 0 #00000033, 1px 1px 0 #00000033;
 `;
 
 

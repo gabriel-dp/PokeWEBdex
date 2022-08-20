@@ -1,5 +1,6 @@
-import Pokedex from 'pokedex-promise-v2';
 import { useState } from 'react';
+import Pokedex from 'pokedex-promise-v2';
+import getIdByUrl from '../../utils/getIdByUrl';
 import PokemonCard from '../../components/PokemonCard';
 
 import {
@@ -7,31 +8,23 @@ import {
     CardsContainer
 } from './styles';
 
-function getIdByUrl (url) {
-    if (url) {
-        const urlStart = 'https://pokeapi.co/api/v2/';
-        const id = (url).replace(urlStart, '').match(/\d+/)[0];
-        return id;
-    }
-}
-
 const PokeDex = () => {
 
-    const P = new Pokedex();
-    
+    const POKEMON_MAX_QUANTITY = 809;
+
+    const pokedexAPI = new Pokedex();
     const [pokemons, setPokemons] = useState([]);
 
-    P.getPokemonsList({
+    pokedexAPI.getPokemonsList({
         offset: 0,
-        limit: 1000
+        limit: POKEMON_MAX_QUANTITY
     })
     .then((response) => {
         let temp_pokemons = [];
         response.results.forEach((pokemon) => {
             let data = {
                 'id': getIdByUrl(pokemon.url),
-                'name': pokemon.name,
-                'types': ['water', 'grass']
+                'name': pokemon.name
             }
             temp_pokemons.push(data);
         })
@@ -42,12 +35,11 @@ const PokeDex = () => {
         <PokedexScreen>
             <CardsContainer>
                 {
-                    pokemons.slice(0, 905).map((data, index) => (
+                    pokemons.map((data, index) => (
                         <PokemonCard
                             key={index}
                             id={data.id}
                             name={data.name}
-                            types={data.types}
                         />
                     ))
                 }
