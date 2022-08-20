@@ -9,7 +9,7 @@ const NavBar = ({ colors=['#cc1100', '#8b0000'] }) => {
     return (
         <BarContainer colors={colors}>
             <IconsContainer>
-                <Link to={'../pokedex'} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth'})}>
+                <Link to={'../'} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth'})}>
                     <PokeballIcon/>
                 </Link>
             </IconsContainer>
