@@ -52,7 +52,6 @@ export const PokemonName = styled.p`
     color: #222;
     font-weight: 600;
     text-transform: uppercase;
-    z-index: 1;
     text-align: center;
     text-decoration: none;
 `;

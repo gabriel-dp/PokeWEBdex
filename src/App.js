@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle/>
-      <Route path='/' exact component={PokeDex}/>
+      <Route path='/pokedex' exact component={PokeDex}/>
       <Route path='/pokemon/:nameORid' component={PokeData}/>
     </BrowserRouter>
   );
