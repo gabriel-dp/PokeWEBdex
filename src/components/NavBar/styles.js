@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { TbPokeball } from 'react-icons/tb';
 
 export const BarContainer = styled.div`
-    height: 2.75rem;
+    height: 2.25rem;
     width: 100%;
     position: fixed;
     top: 0;
@@ -23,12 +23,12 @@ export const IconsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 `;
 
 export const PokeballIcon = styled(TbPokeball)`
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     transition: all 0.5s ease-in-out;
 
     :hover {

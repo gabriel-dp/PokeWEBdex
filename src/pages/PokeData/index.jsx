@@ -79,7 +79,7 @@ const PokeData = () => {
     }), []);
     
     const [pokeData, setPokeData] = useState(defaultData);
-    const [colors, setColors] = useState([]);
+    const [colors, setColors] = useState(['#f5f5f5', '#ddd']);
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
             let tempData = {...defaultData};
