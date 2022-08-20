@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
     border-radius: 0.75rem;
     overflow: hidden;
     cursor: pointer;
+    user-select: none;
 
     display: flex;
     flex-direction: column;

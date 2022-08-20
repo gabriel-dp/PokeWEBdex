@@ -2,12 +2,23 @@ import styled from 'styled-components';
 import { TbPokeball } from 'react-icons/tb';
 
 export const BarContainer = styled.div`
-    height: 2.5rem;
+    height: 2.75rem;
     width: 100%;
     position: fixed;
-    z-index: 1;
-    background: linear-gradient(135deg, #cc1100, #8b0000);
-    filter: drop-shadow(0 0 0.5rem #8b0000cc);
+    top: 0;
+    z-index: 2;
+    background: linear-gradient(135deg, ${props => (props.colors[0] + ',' + props.colors[1])});
+    filter: drop-shadow(0 0 0.5rem #222222aa);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const IconsContainer = styled.div`
+    width: 100%;
+    max-width: 50rem;
 
     display: flex;
     flex-direction: row;

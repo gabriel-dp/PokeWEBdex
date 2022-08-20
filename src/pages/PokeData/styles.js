@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const DataScreen = styled.div`
     height: 100vh;
     width: 100%;
-    background-image: linear-gradient(110deg, ${props => (props.colorLeft + ',' + props.colorRight)});
+    background-image: linear-gradient(110deg, ${props => (props.colors[0] + ',' + props.colors[1])});
+    overflow: hidden;
 
     display: flex;
     flex-direction: column-reverse;
@@ -62,7 +63,7 @@ export const ImageContainer = styled.div`
     min-height: 7rem;
     transform: translate(0, 20%);
     padding: 0 1rem;
-    z-index: 2;
+    z-index: 1;
     
     display: flex;
     flex-direction: column;

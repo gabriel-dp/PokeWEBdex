@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Pokedex from 'pokedex-promise-v2';
 import { LightenDarkenColor } from 'lighten-darken-color'; 
 
+import NavBar from '../../components/NavBar';
 import TypeCard from '../../components/TypeCard';
 import PokemonImage from '../../components/PokemonImage';
 import PokemonAbilities from '../../components/PokemonAbilities';
@@ -78,6 +79,7 @@ const PokeData = () => {
     }), []);
     
     const [pokeData, setPokeData] = useState(defaultData);
+    const [colors, setColors] = useState([]);
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
             let tempData = {...defaultData};
@@ -89,6 +91,8 @@ const PokeData = () => {
             let lastType = dataAPI.types[dataAPI.types.length-1].type.name;
             tempData.types[0] = firstType;
             if (firstType !== lastType) tempData.types[1] = lastType;
+
+            setColors([typeColors[firstType], LightenDarkenColor(typeColors[lastType], -30)]);
 
             tempData.abilities = [];
             dataAPI.abilities.forEach((raw_ability) => {
@@ -106,16 +110,14 @@ const PokeData = () => {
             dataAPI.stats.forEach((stat, index) => {
                 tempData.stats[index].value = stat.base_stat;
             })
-
+            
             setPokeData(tempData);
         }
     }, [dataAPI, defaultData]);
-
+    
     return (
-        <DataScreen 
-            colorLeft={typeColors[pokeData.types[0]]} 
-            colorRight={LightenDarkenColor(typeColors[pokeData.types[pokeData.types.length-1]], -30)}
-        >
+        <DataScreen colors={colors}>
+            <NavBar colors={colors}/>
             <BackgroundDataContainer isLoading={(Object.keys(dataAPI).length === 0)}>
                 <DataWrapper>
                     <DataContainer>
