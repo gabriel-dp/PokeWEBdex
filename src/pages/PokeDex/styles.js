@@ -14,7 +14,7 @@ export const PokedexScreen = styled.div`
 export const CardsContainer = styled.div`
     width: 100%;
     max-width: 55rem;
-    padding: 4rem 1rem;
+    padding: 3.25rem 1rem;
     
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
