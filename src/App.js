@@ -6,7 +6,7 @@ import PokeDex from './pages/PokeDex';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <GlobalStyle/>
       <Route path='/' exact component={PokeDex}/>
       <Route path='/pokemon/:nameORid' component={PokeData}/>
