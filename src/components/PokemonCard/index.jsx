@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import typeColors from '../../utils/TypeColors';
 import PokemonImage from '../PokemonImage';
 
 import {

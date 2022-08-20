@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Pokedex from 'pokedex-promise-v2';
-import getIdByUrl from '../../utils/getIdByUrl';
+
 import PokemonCard from '../../components/PokemonCard';
+import getIdByUrl from '../../utils/getIdByUrl';
 
 import {
     PokedexScreen,

@@ -13,7 +13,6 @@ export const UniqueStatContainer = styled.div`
     display: grid;
     grid-template-columns: 2fr 10fr 1.4fr;
     align-items: center;
-    //background-color: red;
 `;
 
 export const StatCategory = styled.div`
@@ -47,7 +46,7 @@ export const StatValue = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    
     span {
         font-size: 0.7rem;
         color: #555;

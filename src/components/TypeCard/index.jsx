@@ -1,5 +1,5 @@
-import typeColors from '../../utils/TypeColors';
 import styled from 'styled-components';
+import typeColors from '../../utils/TypeColors';
 
 export const Card = styled.div`
     background-color: ${props => props.color};

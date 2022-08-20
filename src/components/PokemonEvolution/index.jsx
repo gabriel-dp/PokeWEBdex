@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import getIdByUrl from '../../utils/getIdByUrl';
 
+import getIdByUrl from '../../utils/getIdByUrl';
 import PokemonImage from '../PokemonImage';
+
 import {
     EvolutionsContainer,
     PokemonContainer,
@@ -78,7 +79,7 @@ const PokemonEvolution = ({ pokedexAPI, name, children }) => {
         <EvolutionsContainer>
             {children}
             {
-                (dataAPI.chain.evolves_to).length !== 0 
+                ((dataAPI.chain.evolves_to).length !== 0 )
                 ? <RecursiveEvolution 
                     id={getIdByUrl(dataAPI.chain.species.url)} 
                     name={dataAPI.chain.species.name} 
