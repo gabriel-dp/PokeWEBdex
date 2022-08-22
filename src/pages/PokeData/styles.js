@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const DataScreen = styled.div`
     height: 100vh;
+    max-height: -webkit-fill-available;
     width: 100%;
     background-image: linear-gradient(110deg, ${props => (props.colors[0] + ',' + props.colors[1])});
     overflow: hidden;
@@ -35,7 +36,7 @@ export const DataWrapper = styled.div`
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 3rem 2rem 2rem 2rem;
+    padding: 3rem 2rem 3.5rem 2rem;
     margin-bottom: 5rem; 
     
     display: flex;
