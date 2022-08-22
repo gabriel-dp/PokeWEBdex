@@ -10,7 +10,7 @@ export const PokedexScreen = styled.div`
     flex-direction: column;
     align-items: center; 
     gap: 2rem;
-    padding: 2rem
+    padding: 2rem 0;
 `;
 
 export const CardsContainer = styled.div`
