@@ -36,7 +36,7 @@ export const DataWrapper = styled.div`
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 3rem 2rem 3.5rem 2rem;
+    padding: 3rem 2rem 2.5rem 2rem;
     margin-bottom: 5rem; 
     
     display: flex;
