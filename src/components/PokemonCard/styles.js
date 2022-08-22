@@ -10,17 +10,20 @@ export const CardContainer = styled.div`
     overflow: hidden;
     cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 
     display: flex;
     flex-direction: column;
     position: relative;
     
     :hover {
-        background: linear-gradient(135deg, #cc1100, #8b0000);
-        filter: drop-shadow(0 0 0.5rem #00000055);
+        filter: drop-shadow(0 0 0.35rem #00000055);
+        @media (min-width: 688px) {
+            background: linear-gradient(135deg, #cc1100, #8b0000);
 
-        p {
-            color: #fff;
+            p {
+                color: #fff;
+            }
         }
     }
 
