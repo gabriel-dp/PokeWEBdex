@@ -78,7 +78,7 @@ const PokeData = () => {
         ]
     }), []);
     
-    const [pokeData, setPokeData] = useState(defaultData);
+    const [pokeData, setPokeData] = useState();
     const [colors, setColors] = useState(['#f5f5f5', '#ddd']);
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
@@ -110,7 +110,7 @@ const PokeData = () => {
             dataAPI.stats.forEach((stat, index) => {
                 tempData.stats[index].value = stat.base_stat;
             })
-            
+
             setPokeData(tempData);
         }
     }, [dataAPI, defaultData]);
@@ -120,50 +120,58 @@ const PokeData = () => {
             <NavBar colors={colors}/>
             <BackgroundDataContainer isLoading={(Object.keys(dataAPI).length === 0)}>
                 <DataWrapper>
-                    <DataContainer>
-                        <div>
-                            <NameText>{pokeData.name}</NameText>
-                            <DataText>#{('000'+pokeData.id).slice(-3)}</DataText>
-                        </div>
-                        <TypesContainer>
-                            {
-                                pokeData.types.map((type, index) => (
-                                    <TypeCard 
-                                        key={index}
-                                        type={type}
-                                    />
-                                ))
-                            }
-                        </TypesContainer>
-                        <MeasuresContainer>
-                            <div className='weigth'>
-                                <DataTitle>Weight</DataTitle>
-                                <DataText>{(pokeData.weight)/10}kg</DataText>
-                            </div>
-                            <VerticalLine></VerticalLine>
-                            <div className='height'>
-                                <DataTitle>Height</DataTitle>
-                                <DataText>{(pokeData.height)/10}m</DataText>
-                            </div>
-                        </MeasuresContainer>
-                        <HorizontalLine/>
-                        <PokemonAbilities pokedexAPI={pokedexAPI} abilities={pokeData.abilities}>
-                            <DataTitle>Abilities</DataTitle>
-                        </PokemonAbilities>
-                        <HorizontalLine/>
-                        <PokemonStats stats={pokeData.stats}>
-                            <DataTitle className='title'>Stats</DataTitle>
-                        </PokemonStats>
-                        <HorizontalLine/>
-                        <PokemonEvolution pokedexAPI={pokedexAPI} name={pokeData.name}>
-                            <DataTitle className='title'>Evolution Chain</DataTitle>
-                        </PokemonEvolution>
-                    </DataContainer>
+                    {
+                        pokeData && (
+                            <DataContainer>
+                                <div>
+                                    <NameText>{pokeData.name}</NameText>
+                                    <DataText>#{('000'+pokeData.id).slice(-3)}</DataText>
+                                </div>
+                                <TypesContainer>
+                                    {
+                                        pokeData.types.map((type, index) => (
+                                            <TypeCard 
+                                                key={index}
+                                                type={type}
+                                            />
+                                        ))
+                                    }
+                                </TypesContainer>
+                                <MeasuresContainer>
+                                    <div className='weigth'>
+                                        <DataTitle>Weight</DataTitle>
+                                        <DataText>{(pokeData.weight)/10}kg</DataText>
+                                    </div>
+                                    <VerticalLine></VerticalLine>
+                                    <div className='height'>
+                                        <DataTitle>Height</DataTitle>
+                                        <DataText>{(pokeData.height)/10}m</DataText>
+                                    </div>
+                                </MeasuresContainer>
+                                <HorizontalLine/>
+                                <PokemonAbilities pokedexAPI={pokedexAPI} abilities={pokeData.abilities}>
+                                    <DataTitle>Abilities</DataTitle>
+                                </PokemonAbilities>
+                                <HorizontalLine/>
+                                <PokemonStats stats={pokeData.stats}>
+                                    <DataTitle className='title'>Stats</DataTitle>
+                                </PokemonStats>
+                                <HorizontalLine/>
+                                <PokemonEvolution pokedexAPI={pokedexAPI} name={pokeData.name}>
+                                    <DataTitle className='title'>Evolution Chain</DataTitle>
+                                </PokemonEvolution>
+                            </DataContainer>
+                        )
+                    }
                 </DataWrapper>
             </BackgroundDataContainer>
-            <ImageContainer>
-                <PokemonImage id={pokeData.id}/>
-            </ImageContainer>
+            {
+                pokeData && (
+                    <ImageContainer>
+                        <PokemonImage id={pokeData.id}/>
+                    </ImageContainer>
+                )
+            }
         </DataScreen>
     )
 };

@@ -8,13 +8,11 @@ export const PokeImage = styled.img`
 
 const PokemonImage = ({ id }) => {
     const fixedID = ('000'+id).slice(-3);
-    const renderImage = (id)
-        ? <PokeImage src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fixedID}.png`}/> 
-        : <></>
+    const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fixedID}.png`;
 
     return (
         <>
-            { renderImage }
+            { id && <PokeImage src={imageUrl}/>}
         </>
     )
 }

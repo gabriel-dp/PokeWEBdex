@@ -48,14 +48,7 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
 
 const PokemonEvolution = ({ pokedexAPI, name, children }) => {
 
-    const [dataAPI, setDataAPI] = useState({
-        'chain': {
-            'evolves_to': [],
-            'species': {
-                'name': ''
-            }
-        }
-    });
+    const [dataAPI, setDataAPI] = useState();
 
     useEffect(() => {
         if (name !== '') {
@@ -79,14 +72,16 @@ const PokemonEvolution = ({ pokedexAPI, name, children }) => {
         <EvolutionsContainer>
             {children}
             {
-                ((dataAPI.chain.evolves_to).length !== 0 )
-                ? <RecursiveEvolution 
-                    id={getIdByUrl(dataAPI.chain.species.url)} 
-                    name={dataAPI.chain.species.name} 
-                    evolves_to={dataAPI.chain.evolves_to}
-                    original={name}
-                />
-                : <NotEvolvesText>This Pokémon does not evolve.</NotEvolvesText>
+                dataAPI && (
+                    ((dataAPI.chain.evolves_to).length !== 0 )
+                    ? <RecursiveEvolution 
+                        id={getIdByUrl(dataAPI.chain.species.url)} 
+                        name={dataAPI.chain.species.name} 
+                        evolves_to={dataAPI.chain.evolves_to}
+                        original={name}
+                    />
+                    : <NotEvolvesText>This Pokémon does not evolve.</NotEvolvesText>
+                )
             }
         </EvolutionsContainer>
     )
