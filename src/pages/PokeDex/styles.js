@@ -9,14 +9,21 @@ export const PokedexScreen = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center; 
-    gap: 2rem;
-    padding: 2rem 0;
+`;
+
+export const PokedexWrapper = styled.div`
+    width: 100%;
+    max-width: 55rem;
+    padding: 4rem 1rem 2rem 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 1.5rem;
 `;
 
 export const CardsContainer = styled.div`
     width: 100%;
-    max-width: 55rem;
-    padding: 1.5rem 1rem;
     
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
