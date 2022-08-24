@@ -18,14 +18,11 @@ const PokeDex = () => {
     const POKEMON_MAX_QUANTITY = 809;
     const POKEMON_PER_PAGE = 96;
     const [allPokemons, setAllPokemons] = useState([]);
+    const [showPokemons, setShowPokemons] = useState([]);
     const [page, setPage] = useState(0);
 
     useEffect(() => {
-        pokedexAPI.getPokemonsList({
-            offset: POKEMON_PER_PAGE*page,
-            limit: Math.min(POKEMON_MAX_QUANTITY-(POKEMON_PER_PAGE*page), POKEMON_PER_PAGE),
-        })
-        .then((response) => {
+        pokedexAPI.getPokemonsList({ limit: POKEMON_MAX_QUANTITY }).then((response) => {
             let temp_pokemons = [];
             response.results.forEach((pokemon) => {
                 let data = {
@@ -36,7 +33,14 @@ const PokeDex = () => {
             })
             setAllPokemons(temp_pokemons);
         })
-    }, [pokedexAPI, page]);
+    }, [pokedexAPI]);
+
+    useEffect(() => {
+        const offset = POKEMON_PER_PAGE*page; 
+        const limit = offset + Math.min(POKEMON_PER_PAGE, POKEMON_MAX_QUANTITY-(offset));
+        console.log(allPokemons.slice(offset, limit));
+        setShowPokemons(allPokemons.slice(offset, limit));
+    }, [page, allPokemons]);
 
     const handlePreviousPage = () => {
         setPage(page-1);
@@ -51,7 +55,7 @@ const PokeDex = () => {
             <NavBar/>
             <CardsContainer>
                 {
-                    allPokemons.map((data, index) => (
+                    showPokemons.map((data, index) => (
                         <PokemonCard
                             key={index}
                             id={data.id}
