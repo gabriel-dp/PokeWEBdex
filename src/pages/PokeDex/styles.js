@@ -19,7 +19,7 @@ export const PokedexWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center; 
-    gap: 1.5rem;
+    gap: 1.25rem;
 `;
 
 export const CardsContainer = styled.div`

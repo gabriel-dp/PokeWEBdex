@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ButtonsContainer = styled.div`
     width: 100%;
     max-width: 15rem;
-    height: 2.5rem;
+    height: 2.25rem;
     border-radius: 0.5rem;
     overflow: hidden;
 

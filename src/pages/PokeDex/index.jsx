@@ -5,6 +5,8 @@ import NavBar from '../../components/NavBar';
 import SearchBar from '../../components/SearchBar';
 import PokemonCard from '../../components/PokemonCard';
 import PageNavigator from '../../components/PageNavigator';
+
+import { writeStorage, getStorage } from '../../utils/sessionStorage';
 import getIdByUrl from '../../utils/getIdByUrl';
 
 import {
@@ -13,18 +15,19 @@ import {
     PokedexWrapper
 } from './styles';
 
+const POKEMON_MAX_QUANTITY = 809;
+const POKEMON_PER_PAGE = 96;
+
 const PokeDex = () => {
 
     const pokedexAPI = useMemo(() => new Pokedex(), []);
 
-    const POKEMON_MAX_QUANTITY = 809;
-    const POKEMON_PER_PAGE = 96;
-    const [allPokemons, setAllPokemons] = useState([]);
-    const [selectedPokemons, setSelectedPokemons] = useState([]);
-    const [showPokemons, setShowPokemons] = useState([]);
-    const [page, setPage] = useState(0);
-
+    const [allPokemons, setAllPokemons] = useState([]);             //all the pokemons defined on max quantity 
+    const [selectedPokemons, setSelectedPokemons] = useState([]);   //all the pokemons selected
+    const [showPokemons, setShowPokemons] = useState([]);           //pokemon selected to be displayed in the actual page
+    
     useEffect(() => {
+        //gets the id and name of all pokemons
         pokedexAPI.getPokemonsList({ limit: POKEMON_MAX_QUANTITY }).then((response) => {
             let temp_pokemons = [];
             response.results.forEach((pokemon) => {
@@ -39,36 +42,66 @@ const PokeDex = () => {
         })
     }, [pokedexAPI]);
 
-    const [search, setSearch] = useState('');
+
+    const [search, setSearch] = useState(getStorage('search', ''));
     useEffect(() => {
-        setPage(0);
+        //updates the selected pokemons on every change in search bar
+        writeStorage('search', search);
         const findedPokemons = allPokemons.filter((pokemon) => (pokemon.name).toLowerCase().includes(search.toLowerCase()));
         setSelectedPokemons(findedPokemons);
+
+        if (getStorage('changed-search', false)) {
+            setPage(0);
+        }
+        writeStorage('changed-search', true);
     }, [search, allPokemons]);
     
+
+
+    const [page, setPage] = useState(getStorage('page', 0));
     useEffect(() => {
+        //defines the pokemons that will be displayed in the actual page
         const offset = POKEMON_PER_PAGE*page; 
         const limit = offset + Math.min(POKEMON_PER_PAGE, POKEMON_MAX_QUANTITY-(offset));
         setShowPokemons(selectedPokemons.slice(offset, limit));
     }, [selectedPokemons, page]);
     
-    const handlePreviousPage = () => {
-        setPage(page-1);
+
+    const goToPreviousPage = () => {
+        const newPage = Math.max(0, page-1);
+        writeStorage('page', newPage);
+        setPage(newPage);
     }
-    const handleNextPage = () => {
-        setPage(page+1);
+
+    const goToNextPage = () => {
+        const newPage = page+1;
+        setPage(newPage);
+        writeStorage('page', newPage);
         window.scrollTo({ top: 0, behavior: 'smooth'});
+    }
+
+    const PageNavigatorComponent = () => {
+        //defines the navigator parameters to use multiple times
+        return (
+            <PageNavigator
+                goToPreviousPage={goToPreviousPage}
+                goToNextPage={goToNextPage}
+                disablePrevious={page === 0}
+                disableNext={showPokemons.length < POKEMON_PER_PAGE}
+            />
+        )
     }
 
     return (
         <PokedexScreen>
-            <NavBar/>
+            <NavBar setPage={setPage} setSearch={setSearch}/>
             <PokedexWrapper>      
                 <SearchBar 
                     placeholder='Name' 
                     search={search} 
                     setSearch={setSearch}
                 />
+                <PageNavigatorComponent/>
                 <CardsContainer>
                     {
                         showPokemons.map((data, index) => (
@@ -77,15 +110,10 @@ const PokeDex = () => {
                                 id={data.id}
                                 name={data.name}
                             />
-                        ))
-                    }
+                            ))
+                        }
                 </CardsContainer>
-                <PageNavigator
-                    handlePreviousPage={handlePreviousPage}
-                    handleNextPage={handleNextPage}
-                    disablePrevious={page === 0}
-                    disableNext={showPokemons.length < POKEMON_PER_PAGE}
-                />
+                <PageNavigatorComponent/>
             </PokedexWrapper>
         </PokedexScreen>
     )
