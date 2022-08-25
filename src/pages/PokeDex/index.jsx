@@ -57,14 +57,13 @@ const PokeDex = () => {
     }, [search, allPokemons]);
     
 
-    const [page, setPage] = useState(getStorage('page', 0));
+    const [page, setPage] = useState(parseInt(getStorage('page', 0)));
     useEffect(() => {
         //defines the pokemons that will be displayed in the actual page
         const offset = POKEMON_PER_PAGE*page; 
         const limit = offset + Math.min(POKEMON_PER_PAGE, POKEMON_MAX_QUANTITY-(offset));
         setShowPokemons(selectedPokemons.slice(offset, limit));
-    }, [selectedPokemons, page]);
-    
+    }, [selectedPokemons, page]);   
 
     const changePageTo = (newPage) => {
         writeStorage('page', newPage);
