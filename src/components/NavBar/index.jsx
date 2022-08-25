@@ -5,9 +5,9 @@ import {
     PokeballIcon
 } from './styles';
 
-const NavBar = ({ colors=['#cc1100', '#8b0000'], setPage, setSearch }) => {
+const NavBar = ({ colors=['#cc1100', '#8b0000'], changePageTo, setSearch }) => {
     const handleIconClick = () => {
-        setPage && setPage(0); //go to initial page
+        changePageTo && changePageTo(0); //go to initial page
         setSearch && setSearch('') //reset search bar
         window.scrollTo({ top: 0, behavior: 'smooth'});
     }

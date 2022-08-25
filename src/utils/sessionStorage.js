@@ -4,7 +4,7 @@ export function writeStorage (key, value) {
 
 export function getStorage (key, defaultValue) {
     const value = window.sessionStorage.getItem(key);
-    if (!value) {
+    if (!value && value !== '') {
         writeStorage(key, defaultValue);
         return defaultValue;
     }

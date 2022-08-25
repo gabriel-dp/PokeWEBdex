@@ -46,17 +46,16 @@ const PokeDex = () => {
     const [search, setSearch] = useState(getStorage('search', ''));
     useEffect(() => {
         //updates the selected pokemons on every change in search bar
+        const previousSearch = getStorage('search');
         writeStorage('search', search);
         const findedPokemons = allPokemons.filter((pokemon) => (pokemon.name).toLowerCase().includes(search.toLowerCase()));
         setSelectedPokemons(findedPokemons);
 
-        if (getStorage('changed-search', false)) {
-            setPage(0);
+        if (previousSearch !== search) {
+            changePageTo(0);
         }
-        writeStorage('changed-search', true);
     }, [search, allPokemons]);
     
-
 
     const [page, setPage] = useState(getStorage('page', 0));
     useEffect(() => {
@@ -67,16 +66,15 @@ const PokeDex = () => {
     }, [selectedPokemons, page]);
     
 
-    const goToPreviousPage = () => {
-        const newPage = Math.max(0, page-1);
+    const changePageTo = (newPage) => {
         writeStorage('page', newPage);
         setPage(newPage);
     }
-
+    const goToPreviousPage = () => {
+        changePageTo(Math.max(0, page-1));
+    }
     const goToNextPage = () => {
-        const newPage = page+1;
-        setPage(newPage);
-        writeStorage('page', newPage);
+        changePageTo(Math.min(Math.ceil(selectedPokemons.length/POKEMON_PER_PAGE), page+1));
         window.scrollTo({ top: 0, behavior: 'smooth'});
     }
 
@@ -94,7 +92,7 @@ const PokeDex = () => {
 
     return (
         <PokedexScreen>
-            <NavBar setPage={setPage} setSearch={setSearch}/>
+            <NavBar changePageTo={changePageTo} setSearch={setSearch}/>
             <PokedexWrapper>      
                 <SearchBar 
                     placeholder='Name' 
