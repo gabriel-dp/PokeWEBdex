@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const SearchContainer = styled.div`
     width: 100%;
     max-width: 55rem;
-    border-radius: 0.5rem;
-    overflow: hidden;
 `;
 
 export const SearchInput = styled.input.attrs({
@@ -14,10 +12,11 @@ export const SearchInput = styled.input.attrs({
     height: 2.5rem;
     background-color: #f5f5f5;
     border: none;
-    padding: 0 1rem;
+    border-radius: 0.5rem;
+    padding: 0 1.25rem;
     font-size: 1rem;
     outline: none;
-
+    
     ::placeholder {
         color: #000;
         opacity: 0.15;
@@ -25,5 +24,9 @@ export const SearchInput = styled.input.attrs({
     ::-ms-input-placeholder {
         color: #000;
         opacity: 0.15;
+    }
+
+    :focus {
+        filter: drop-shadow(0 0 0.25rem #00000022);   
     }
 `;
