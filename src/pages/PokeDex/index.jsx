@@ -7,7 +7,7 @@ import PokemonCard from '../../components/PokemonCard';
 import PageNavigator from '../../components/PageNavigator';
 
 import { writeStorage, getStorage } from '../../utils/sessionStorage';
-import { getIdByUrl } from '../../utils/IdManage';
+import { getIdByUrl, fixedId } from '../../utils/IdManage';
 
 import {
     PokedexScreen,
@@ -62,7 +62,7 @@ const PokeDex = () => {
         //defines the pokemons that will be displayed in the actual page
         const offset = POKEMON_PER_PAGE*page; 
         const limit = offset + Math.min(POKEMON_PER_PAGE, POKEMON_MAX_QUANTITY-(offset));
-        setShowPokemons(selectedPokemons.slice(offset, limit));
+        setShowPokemons((selectedPokemons.slice(offset, limit)).filter(Boolean) );
     }, [selectedPokemons, page]);   
 
     const changePageTo = (newPage) => {
@@ -104,11 +104,11 @@ const PokeDex = () => {
                         showPokemons.map((data, index) => (
                             <PokemonCard
                                 key={index}
-                                id={data.id}
+                                id={fixedId(data.id)}
                                 name={data.name}
                             />
-                            ))
-                        }
+                        ))
+                    }
                 </CardsContainer>
                 <PageNavigatorComponent/>
             </PokedexWrapper>
