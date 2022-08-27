@@ -1,4 +1,4 @@
-<br/>
+<br/><br/>
 <p align=center>
     <img width=450 src='./docs/logo.png'/>
 </p>
@@ -27,7 +27,7 @@
 
 
 ## 💡 Motivation
-This project has a personal motivation. I've been playing Pokémon games since I was a kid, and now I've been able to work on an application that combines programming and pokémons. 
+This project has a personal motivation. I've been playing Pokémon games since I was a kid, and now I've been able to work on an application that combines programming and Pokémon. 
 
 <br/>
 
