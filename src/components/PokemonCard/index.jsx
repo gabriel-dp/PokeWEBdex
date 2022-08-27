@@ -11,7 +11,7 @@ import {
 const PokemonCard = ({ id, name}) => {
     return (
         <CardContainer>
-            <Link to={`pokemon/${name}`}>
+            <Link to={`pokemon/${id}`}>
                 <ImageContainer>
                     <PokemonImage id={id}/>
                 </ImageContainer>

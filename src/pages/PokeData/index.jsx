@@ -86,7 +86,7 @@ const PokeData = () => {
         if (Object.keys(dataAPI).length !== 0) {
             let tempData = {...defaultData};
             tempData.id = fixedId(dataAPI.id);
-            tempData.name = dataAPI.name;
+            tempData.name = dataAPI.species.name;
             
             tempData.types = [];
             let firstType = dataAPI.types[0].type.name;

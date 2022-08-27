@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getIdByUrl } from '../../utils/IdManage';
+import { getIdByUrl, fixedId } from '../../utils/IdManage';
 import PokemonImage from '../PokemonImage';
 
 import {
@@ -21,12 +21,12 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
                 {
                     stage > 0 ? <Arrow stage={stage}/> : ''
                 }
-                <Link to={`${name}`}>
+                <Link to={`${id}`} replace>
                     <ImageContainer is_original={is_original}>
                         <PokemonImage id={id}/>
                     </ImageContainer>
                 </Link>
-                <Link to={`${name}`}>
+                <Link to={`${id}`} replace>
                     <PokemonName is_original={is_original}>{name}</PokemonName>
                 </Link>
             </PokemonContainer>
@@ -34,7 +34,7 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
                 evolves_to && evolves_to.map((evolution) => (
                     <RecursiveEvolution 
                         key={getIdByUrl(evolution.species.url)}
-                        id={getIdByUrl(evolution.species.url)}
+                        id={fixedId(getIdByUrl(evolution.species.url))}
                         name={evolution.species.name} 
                         evolves_to={evolution.evolves_to}
                         stage={stage+1}
@@ -52,7 +52,7 @@ const PokemonEvolution = ({ pokedexAPI, id, children }) => {
 
     useEffect(() => {
         if (id !== '') {
-            const pathAPI = `/api/v2/pokemon-species/${id}/`
+            const pathAPI = `/api/v2/pokemon-species/${parseInt(id)}/`
             pokedexAPI.getResource(pathAPI, (response, error) => {
                 if (!error) {
                     pokedexAPI.getEvolutionChainById(getIdByUrl(response.evolution_chain.url), (response2, error2) => {
@@ -76,7 +76,7 @@ const PokemonEvolution = ({ pokedexAPI, id, children }) => {
                 dataAPI && (
                     ((dataAPI.chain.evolves_to).length !== 0 )
                     ? <RecursiveEvolution 
-                        id={getIdByUrl(dataAPI.chain.species.url)} 
+                        id={fixedId(getIdByUrl(dataAPI.chain.species.url))} 
                         name={dataAPI.chain.species.name} 
                         evolves_to={dataAPI.chain.evolves_to}
                         original={id}
