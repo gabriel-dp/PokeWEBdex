@@ -9,7 +9,9 @@ import PokemonImage from '../../components/PokemonImage';
 import PokemonAbilities from '../../components/PokemonAbilities';
 import PokemonStats from '../../components/PokemonStats';
 import PokemonEvolution from '../../components/PokemonEvolution';
+
 import typeColors from '../../utils/TypeColors';
+import { fixedId } from '../../utils/IdManage';
 
 import {
     DataScreen,
@@ -83,7 +85,7 @@ const PokeData = () => {
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
             let tempData = {...defaultData};
-            tempData.id = dataAPI.id;
+            tempData.id = fixedId(dataAPI.id);
             tempData.name = dataAPI.name;
             
             tempData.types = [];
@@ -125,7 +127,7 @@ const PokeData = () => {
                             <DataContainer>
                                 <div>
                                     <NameText>{pokeData.name}</NameText>
-                                    <DataText>#{('000'+pokeData.id).slice(-3)}</DataText>
+                                    <DataText>#{pokeData.id}</DataText>
                                 </div>
                                 <TypesContainer>
                                     {
@@ -157,7 +159,7 @@ const PokeData = () => {
                                     <DataTitle className='title'>Stats</DataTitle>
                                 </PokemonStats>
                                 <HorizontalLine/>
-                                <PokemonEvolution pokedexAPI={pokedexAPI} name={pokeData.name}>
+                                <PokemonEvolution pokedexAPI={pokedexAPI} id={pokeData.id}>
                                     <DataTitle className='title'>Evolution Chain</DataTitle>
                                 </PokemonEvolution>
                             </DataContainer>

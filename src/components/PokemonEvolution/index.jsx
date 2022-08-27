@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import getIdByUrl from '../../utils/getIdByUrl';
+import { getIdByUrl } from '../../utils/IdManage';
 import PokemonImage from '../PokemonImage';
 
 import {
@@ -46,14 +46,15 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const PokemonEvolution = ({ pokedexAPI, name, children }) => {
+const PokemonEvolution = ({ pokedexAPI, id, children }) => {
 
     const [dataAPI, setDataAPI] = useState();
 
     useEffect(() => {
-        if (name !== '') {
-            pokedexAPI.getPokemonSpeciesByName(name, (response, error) => {
-                if(!error) {
+        if (id !== '') {
+            const pathAPI = `/api/v2/pokemon-species/${id}/`
+            pokedexAPI.getResource(pathAPI, (response, error) => {
+                if (!error) {
                     pokedexAPI.getEvolutionChainById(getIdByUrl(response.evolution_chain.url), (response2, error2) => {
                         if (!error2) {
                             setDataAPI(response2);
@@ -66,7 +67,7 @@ const PokemonEvolution = ({ pokedexAPI, name, children }) => {
                 }
             });
         }
-    }, [pokedexAPI, name]);
+    }, [pokedexAPI, id]);
 
     return (
         <EvolutionsContainer>
@@ -78,7 +79,7 @@ const PokemonEvolution = ({ pokedexAPI, name, children }) => {
                         id={getIdByUrl(dataAPI.chain.species.url)} 
                         name={dataAPI.chain.species.name} 
                         evolves_to={dataAPI.chain.evolves_to}
-                        original={name}
+                        original={id}
                     />
                     : <NotEvolvesText>This Pokémon does not evolve.</NotEvolvesText>
                 )

@@ -7,7 +7,7 @@ import PokemonCard from '../../components/PokemonCard';
 import PageNavigator from '../../components/PageNavigator';
 
 import { writeStorage, getStorage } from '../../utils/sessionStorage';
-import getIdByUrl from '../../utils/getIdByUrl';
+import { getIdByUrl } from '../../utils/IdManage';
 
 import {
     PokedexScreen,
