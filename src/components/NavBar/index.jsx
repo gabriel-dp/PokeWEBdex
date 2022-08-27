@@ -15,7 +15,11 @@ const NavBar = ({ colors=['#cc1100', '#8b0000'], changePageTo, setSearch }) => {
     return (
         <BarContainer colors={colors}>
             <IconsContainer>
-                <Link to={'../'} onClick={() => handleIconClick()}>
+                <Link 
+                    to={'../'} 
+                    onClick={() => handleIconClick()} 
+                    replace
+                >
                     <PokeballIcon/>
                 </Link>
             </IconsContainer>
