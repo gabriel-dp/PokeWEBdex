@@ -62,7 +62,7 @@ const PokeDex = () => {
         //defines the pokemons that will be displayed in the actual page
         const offset = POKEMON_PER_PAGE*page; 
         const limit = offset + Math.min(POKEMON_PER_PAGE, POKEMON_MAX_QUANTITY-(offset));
-        setShowPokemons((selectedPokemons.slice(offset, limit)).filter(Boolean) );
+        setShowPokemons(selectedPokemons.slice(offset, limit));
     }, [selectedPokemons, page]);   
 
     const changePageTo = (newPage) => {
