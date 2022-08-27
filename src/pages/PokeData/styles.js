@@ -75,6 +75,12 @@ export const NameText = styled.h2`
     font-size: 1.5rem;
     color: #333;
     text-transform: uppercase;
+
+    @media (min-width: 688px) {
+        :hover {
+            letter-spacing: 0.1rem;
+        }
+    }
 `;
 
 export const TypesContainer = styled.div`
@@ -91,6 +97,12 @@ export const DataTitle = styled.h3`
     color: #444444;
     text-align: center;
     margin-bottom: 0.25rem;
+
+    @media (min-width: 688px) {
+        :hover {
+            letter-spacing: 0.1rem;
+        }
+    }
 `;
 
 export const DataText = styled.p`
