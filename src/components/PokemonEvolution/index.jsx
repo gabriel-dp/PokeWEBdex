@@ -13,8 +13,10 @@ import {
     NotEvolvesText
 } from './styles';
 
+
 const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
-    const is_original = (original === name);
+
+    const is_original = (original === id);
     return (
         <>
             <PokemonContainer stage={stage}>
@@ -33,12 +35,12 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
             { 
                 evolves_to && evolves_to.map((evolution) => (
                     <RecursiveEvolution 
-                        key={getIdByUrl(evolution.species.url)}
-                        id={fixedId(getIdByUrl(evolution.species.url))}
-                        name={evolution.species.name} 
-                        evolves_to={evolution.evolves_to}
-                        stage={stage+1}
-                        original={original}
+                    key={getIdByUrl(evolution.species.url)}
+                    id={fixedId(getIdByUrl(evolution.species.url))}
+                    name={evolution.species.name} 
+                    evolves_to={evolution.evolves_to}
+                    stage={stage+1}
+                    original={original}
                     />
                 ))
             }
@@ -46,15 +48,27 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const PokemonEvolution = ({ pokedexAPI, id, children }) => {
+const EXCLUDED_FORMS = ['totem', 'gmax', 'white', 'busted']; //(white for basculin) (busted for mimikyu)
+function checkExcluded (form) {
+    let is_excluded = false;
+    EXCLUDED_FORMS.forEach((subname) => {
+        if (form.pokemon.name.includes(subname)) is_excluded = true;
+    })
+    if (!is_excluded) return form.pokemon.name;
+}
+
+const PokemonEvolution = ({ pokedexAPI, id, form_id, children }) => {
 
     const [dataAPI, setDataAPI] = useState();
+    const [pokeForms, setPokeForms] = useState([]);
 
     useEffect(() => {
         if (id !== '') {
             const pathAPI = `/api/v2/pokemon-species/${parseInt(id)}/`
             pokedexAPI.getResource(pathAPI, (response, error) => {
                 if (!error) {
+                    setPokeForms((response.varieties).filter(checkExcluded));
+
                     pokedexAPI.getEvolutionChainById(getIdByUrl(response.evolution_chain.url), (response2, error2) => {
                         if (!error2) {
                             setDataAPI(response2);
@@ -82,6 +96,27 @@ const PokemonEvolution = ({ pokedexAPI, id, children }) => {
                         original={id}
                     />
                     : <NotEvolvesText>This Pokémon does not evolve.</NotEvolvesText>
+                )
+            }
+            {
+                dataAPI && (
+                    pokeForms.map((form, index) => {
+                        const is_original = (fixedId(getIdByUrl(form.pokemon.url)) === form_id);
+                        return (
+                            (!form.is_default || (dataAPI.chain.evolves_to.length === 0) && pokeForms.length > 1) && (
+                                <PokemonContainer key={index}>
+                                    <Link to={`${form.pokemon.name}`} replace>
+                                        <ImageContainer is_original={is_original}>
+                                            <PokemonImage id={index === 0 ? id : `${id}_f${index+1}`}/>
+                                        </ImageContainer>
+                                    </Link>
+                                    <Link to={`${form.pokemon.name}`} replace>
+                                        <PokemonName is_original={is_original}>{form.pokemon.name}</PokemonName>
+                                    </Link>
+                                </PokemonContainer>
+                            )
+                        )
+                    })
                 )
             }
         </EvolutionsContainer>

@@ -7,5 +7,11 @@ export function getIdByUrl (url) {
 }
 
 export function fixedId (id) {
-   return id ? ('000'+id).slice(-3) : '';
+    if (id) {
+        if (((id).toString()).length > 3 && id[0] !== '0') {
+            return id;
+        }
+        return ('000'+id).slice(-3);
+    }
+    return '';
 }

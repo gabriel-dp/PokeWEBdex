@@ -11,7 +11,7 @@ import PokemonStats from '../../components/PokemonStats';
 import PokemonEvolution from '../../components/PokemonEvolution';
 
 import typeColors from '../../utils/TypeColors';
-import { fixedId } from '../../utils/IdManage';
+import { fixedId, getIdByUrl } from '../../utils/IdManage';
 
 import {
     DataScreen,
@@ -44,7 +44,7 @@ const PokeData = () => {
             }
         });
     }, [pokedexAPI, nameORid]);
-
+    
     const defaultData = useMemo(() => ({
         'id': 0,
         'name': '',
@@ -52,6 +52,8 @@ const PokeData = () => {
         'abilities': [],
         'weight': 0,
         'height': 0,
+        'is_default': true,
+        'form_id': 0,
         'stats': [
             {
                 'name': 'hp',
@@ -77,25 +79,29 @@ const PokeData = () => {
                 'name': 'spe',
                 'value': 0
             },
-        ]
+        ],
     }), []);
     
     const [pokeData, setPokeData] = useState();
     const [colors, setColors] = useState(['#f5f5f5', '#ddd']);
+    const [imagePath, setImagePath] = useState('');
     useEffect(() => {
         if (Object.keys(dataAPI).length !== 0) {
             let tempData = {...defaultData};
-            tempData.id = fixedId(dataAPI.id);
+
+            let specieId = fixedId(getIdByUrl(dataAPI.species.url));
+            tempData.id = specieId;
             tempData.name = dataAPI.species.name;
+            tempData.form_id = dataAPI.id.toString();
             
             tempData.types = [];
             let firstType = dataAPI.types[0].type.name;
             let lastType = dataAPI.types[dataAPI.types.length-1].type.name;
             tempData.types[0] = firstType;
             if (firstType !== lastType) tempData.types[1] = lastType;
-
+            
             setColors([typeColors[firstType], LightenDarkenColor(typeColors[lastType], -30)]);
-
+            
             tempData.abilities = [];
             dataAPI.abilities.forEach((raw_ability) => {
                 let object = {
@@ -113,9 +119,22 @@ const PokeData = () => {
                 tempData.stats[index].value = stat.base_stat;
             })
 
+
+            if (!dataAPI.is_default) {
+                tempData.is_default = false;
+
+                pokedexAPI.getPokemonFormByName(dataAPI.name).then((response) => {
+                    const form_order = response.form_order;
+                    const path = `${specieId}_f${form_order}`;
+                    setImagePath(path);
+                })
+            } else {
+                setImagePath(specieId);
+            }
+
             setPokeData(tempData);
         }
-    }, [dataAPI, defaultData]);
+    }, [dataAPI, defaultData, pokedexAPI]);
     
     return (
         <DataScreen colors={colors}>
@@ -159,7 +178,7 @@ const PokeData = () => {
                                     <DataTitle className='title'>Stats</DataTitle>
                                 </PokemonStats>
                                 <HorizontalLine/>
-                                <PokemonEvolution pokedexAPI={pokedexAPI} id={pokeData.id}>
+                                <PokemonEvolution pokedexAPI={pokedexAPI} id={pokeData.id} form_id={pokeData.form_id}>
                                     <DataTitle className='title'>Evolution Chain</DataTitle>
                                 </PokemonEvolution>
                             </DataContainer>
@@ -170,7 +189,7 @@ const PokeData = () => {
             {
                 pokeData && (
                     <ImageContainer>
-                        <PokemonImage id={pokeData.id}/>
+                        <PokemonImage id={imagePath}/>
                     </ImageContainer>
                 )
             }

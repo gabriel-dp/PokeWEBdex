@@ -49,4 +49,5 @@ export const PokemonName = styled.p`
 export const NotEvolvesText = styled.p`
     font-size: 0.8rem;
     color: #555;
+    margin-bottom: 1rem;
 `;
