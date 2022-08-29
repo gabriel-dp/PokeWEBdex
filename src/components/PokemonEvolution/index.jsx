@@ -48,7 +48,7 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const EXCLUDED_FORMS = ['totem', 'gmax', 'white', 'busted']; //(white for basculin) (busted for mimikyu)
+const EXCLUDED_FORMS = ['totem', 'gmax', 'white-striped', 'busted', 'pikachu-']; //(white for basculin) (busted for mimikyu)
 function checkExcluded (form) {
     let is_excluded = false;
     EXCLUDED_FORMS.forEach((subname) => {
