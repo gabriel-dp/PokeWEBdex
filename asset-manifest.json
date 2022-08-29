@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/PokeWEBdex/static/js/main.00f4ffc9.js",
+    "main.js": "/PokeWEBdex/static/js/main.c735c40e.js",
     "index.html": "/PokeWEBdex/index.html",
-    "main.00f4ffc9.js.map": "/PokeWEBdex/static/js/main.00f4ffc9.js.map"
+    "main.c735c40e.js.map": "/PokeWEBdex/static/js/main.c735c40e.js.map"
   },
   "entrypoints": [
-    "static/js/main.00f4ffc9.js"
+    "static/js/main.c735c40e.js"
   ]
 }
