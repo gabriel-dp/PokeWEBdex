@@ -49,7 +49,7 @@ All data used in this project came from [PokéAPI](https://pokeapi.co/), a great
 
 ```bash
 # Clone
-git clone https://github.com/gabrieldp23/gabrieldp23.github.io.git
+git clone https://github.com/gabrieldp23/PokeWEBdex.git
 
 # Node modules
 npm install
