@@ -48,7 +48,16 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const EXCLUDED_FORMS = ['totem', 'gmax', 'white-striped', 'busted', 'pikachu-']; //(white for basculin) (busted for mimikyu)
+const EXCLUDED_FORMS = ['totem', 'gmax', 'hisui', 'white-striped', 'busted', 'pikachu-']; 
+/* 
+(totem for alola big variations) 
+(gmax for gigantamax versions) 
+(hisui for gen8 variants) 
+(white for basculin) 
+(busted for mimikyu)
+(pikachu for random pikachu forms)
+*/
+
 function checkExcluded (form) {
     let is_excluded = false;
     EXCLUDED_FORMS.forEach((subname) => {
@@ -103,7 +112,7 @@ const PokemonEvolution = ({ pokedexAPI, id, form_id, children }) => {
                     pokeForms.map((form, index) => {
                         const is_original = (fixedId(getIdByUrl(form.pokemon.url)) === form_id);
                         return (
-                            (!form.is_default || (dataAPI.chain.evolves_to.length === 0) && pokeForms.length > 1) && (
+                            (!form.is_default || ((dataAPI.chain.evolves_to.length === 0) && pokeForms.length > 1)) && (
                                 <PokemonContainer key={index}>
                                     <Link to={`${form.pokemon.name}`} replace>
                                         <ImageContainer is_original={is_original}>
