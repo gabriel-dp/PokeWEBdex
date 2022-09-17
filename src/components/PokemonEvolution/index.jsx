@@ -110,16 +110,18 @@ const PokemonEvolution = ({ pokedexAPI, id, form_id, children }) => {
             {
                 dataAPI && (
                     pokeForms.map((form, index) => {
-                        const is_original = (fixedId(getIdByUrl(form.pokemon.url)) === form_id);
+                        const pokemon_id = fixedId(getIdByUrl(form.pokemon.url));
+                        const is_original = (pokemon_id === form_id);
+                        const pokemon_link = (form.is_default) ? pokemon_id : form.pokemon.name;
                         return (
                             (!form.is_default || ((dataAPI.chain.evolves_to.length === 0) && pokeForms.length > 1)) && (
                                 <PokemonContainer key={index}>
-                                    <Link to={`${form.pokemon.name}`} replace>
+                                    <Link to={`${pokemon_link}`} replace>
                                         <ImageContainer is_original={is_original}>
                                             <PokemonImage id={index === 0 ? id : `${id}_f${index+1}`}/>
                                         </ImageContainer>
                                     </Link>
-                                    <Link to={`${form.pokemon.name}`} replace>
+                                    <Link to={`${pokemon_link}`} replace>
                                         <PokemonName is_original={is_original}>{form.pokemon.name}</PokemonName>
                                     </Link>
                                 </PokemonContainer>
