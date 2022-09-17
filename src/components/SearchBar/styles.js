@@ -16,6 +16,7 @@ export const SearchInput = styled.input.attrs({
     padding: 0 1.25rem;
     font-size: 1rem;
     outline: none;
+    user-select: auto;
     
     ::placeholder {
         color: #000;
