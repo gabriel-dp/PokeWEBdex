@@ -31,11 +31,11 @@ This project has a personal motivation. I've been playing Pokémon games since I
 
 <br/>
 
-## Legal
+## ✅ Legal
 
 Pokémon images, names and information (c) 1995-2022 Nintendo/Game freak.
 
-## API  
+## ⚙️ API  
 
 All data used in this project came from [PokéAPI](https://pokeapi.co/), a great RESTful API.
 
