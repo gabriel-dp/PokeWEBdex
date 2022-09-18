@@ -48,14 +48,15 @@ const RecursiveEvolution = ({ id, name, evolves_to, stage=0, original }) => {
     )
 }
 
-const EXCLUDED_FORMS = ['totem', 'gmax', 'hisui', 'white-striped', 'busted', 'pikachu-']; 
+const EXCLUDED_FORMS = ['totem', 'gmax', 'hisui', 'white-striped', 'busted', 'pikachu-', 'starter']; 
 /* 
 (totem for alola big variations) 
 (gmax for gigantamax versions) 
 (hisui for gen8 variants) 
 (white for basculin) 
 (busted for mimikyu)
-(pikachu for random pikachu forms)
+(pikachu- for random pikachu forms)
+(starter for eevee)
 */
 
 function checkExcluded (form) {
