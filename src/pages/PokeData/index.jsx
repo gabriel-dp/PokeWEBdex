@@ -135,6 +135,17 @@ const PokeData = () => {
             setPokeData(tempData);
         }
     }, [dataAPI, defaultData, pokedexAPI]);
+
+    //changes title to pokemon displayed
+    useEffect(() => {
+        if (pokeData) {
+            const generateTitle = (pokeName) => {
+                return `${(pokeName).charAt(0).toUpperCase() + pokeName.slice(1)} | PókeWEBdex`;
+            }
+
+            document.title = generateTitle(pokeData.name);
+        }
+    }, [pokeData]);
     
     return (
         <DataScreen colors={colors}>

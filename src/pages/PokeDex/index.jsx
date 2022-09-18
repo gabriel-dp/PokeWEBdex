@@ -40,6 +40,9 @@ const PokeDex = () => {
             setAllPokemons(temp_pokemons);
             setSelectedPokemons(temp_pokemons);
         })
+
+        //changes page title to default
+        document.title = 'PokéWEBdex';
     }, [pokedexAPI]);
 
 
