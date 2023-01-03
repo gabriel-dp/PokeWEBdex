@@ -11,8 +11,8 @@ import { getIdByUrl, fixedId } from '../../utils/IdManage';
 
 import { PokedexScreen, CardsContainer, PokedexWrapper } from './styles';
 
-const POKEMON_MAX_QUANTITY = 809;
-const POKEMON_PER_PAGE = 96;
+const POKEMON_MAX_QUANTITY = 905; // Gen8 end (Enamorus)
+const POKEMON_PER_PAGE = 96; // Number divisible by 1, 2, 3, 4
 
 function PokeDex() {
 	const pokedexAPI = useMemo(() => new Pokedex(), []);
@@ -68,6 +68,7 @@ function PokeDex() {
 		const findedPokemons = allPokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(search.toLowerCase()));
 		setSelectedPokemons(findedPokemons);
 
+		// Change page to 0 when search changes
 		if (previousSearch !== search) {
 			changePageTo(0);
 		}
