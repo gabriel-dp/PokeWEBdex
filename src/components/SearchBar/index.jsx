@@ -1,11 +1,11 @@
 import { SearchContainer, SearchInput } from './styles';
 
-function SearchBar({ placeholder, search, setSearch }) {
+function SearchBar({ placeholder, value, setSearch }) {
 	return (
 		<SearchContainer>
 			<SearchInput
 				placeholder={placeholder}
-				value={search}
+				value={value}
 				onChange={(event) => setSearch(event.target.value)}
 			/>
 		</SearchContainer>

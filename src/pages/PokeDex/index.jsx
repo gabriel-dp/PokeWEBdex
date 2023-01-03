@@ -61,11 +61,16 @@ function PokeDex() {
 	};
 
 	const [search, setSearch] = useState(getStorage('search', ''));
+	// updates the selected pokemons on every change in search bar
 	useEffect(() => {
-		// updates the selected pokemons on every change in search bar
 		const previousSearch = getStorage('search');
 		writeStorage('search', search);
-		const findedPokemons = allPokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(search.toLowerCase()));
+
+		// If the search contains numbers, searches by ID instead of NAME
+		const property = /\d/.test(search) ? 'id' : 'name';
+		const findedPokemons = allPokemons.filter((pokemon) =>
+			pokemon[property].toLowerCase().includes(search.toLowerCase())
+		);
 		setSelectedPokemons(findedPokemons);
 
 		// Change page to 0 when search changes
@@ -82,8 +87,8 @@ function PokeDex() {
 			/>
 			<PokedexWrapper>
 				<SearchBar
-					placeholder="Name"
-					search={search}
+					placeholder="Name or Id"
+					value={search}
 					setSearch={setSearch}
 				/>
 				<PageNavigator

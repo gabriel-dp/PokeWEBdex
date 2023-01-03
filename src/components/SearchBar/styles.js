@@ -20,11 +20,11 @@ export const SearchInput = styled.input.attrs({
 
 	::placeholder {
 		color: #000;
-		opacity: 0.15;
+		opacity: 0.3;
 	}
 	::-ms-input-placeholder {
 		color: #000;
-		opacity: 0.15;
+		opacity: 0.3;
 	}
 
 	:focus {
