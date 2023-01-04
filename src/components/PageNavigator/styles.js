@@ -19,6 +19,7 @@ export const NavButton = styled.button`
 	border: none;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
+	transition: all 50ms ease;
 
 	&.previous {
 		border-radius: 1rem 0 0 1rem;

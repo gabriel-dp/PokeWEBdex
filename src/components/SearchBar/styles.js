@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SearchContainer = styled.div`
 	width: 100%;
 	max-width: 55rem;
+	filter: drop-shadow(0 0.25rem 0.5rem #00000022);
 `;
 
 export const SearchInput = styled.input.attrs({
