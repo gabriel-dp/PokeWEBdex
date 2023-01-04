@@ -5,7 +5,6 @@ export const ButtonsContainer = styled.div`
 	max-width: 15rem;
 	height: 2.25rem;
 	border-radius: 0.5rem;
-	overflow: hidden;
 
 	display: flex;
 	flex-direction: row;
@@ -14,12 +13,19 @@ export const ButtonsContainer = styled.div`
 
 export const NavButton = styled.button`
 	width: 50%;
-	height: 100%;
+	height: 2.25rem;
 	background-color: #c5c5c5;
-	border-radius: 0;
 	border: none;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
+
+	&.previous {
+		border-radius: 1rem 0 0 1rem;
+	}
+
+	&.next {
+		border-radius: 0 1rem 1rem 0;
+	}
 
 	opacity: ${(props) => (props.isDisabled ? 0.4 : 1)};
 	cursor: ${(props) => (!props.isDisabled ? 'pointer' : 'not-allowed')};

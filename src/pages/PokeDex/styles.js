@@ -7,14 +7,15 @@ export const PokedexScreen = styled.div`
 	background-color: #ddd;
 
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 	align-items: center;
 `;
 
 export const PokedexWrapper = styled.div`
 	width: 100%;
-	max-width: 55rem;
-	padding: 4rem 1rem 2rem 1rem;
+	height: calc(100vh - 2rem);
+	padding: 2rem;
+	overflow-y: scroll;
 
 	display: flex;
 	flex-direction: column;
@@ -24,8 +25,9 @@ export const PokedexWrapper = styled.div`
 
 export const CardsContainer = styled.div`
 	width: 100%;
+	max-width: 55rem;
 
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
 	gap: 1rem;
 `;
