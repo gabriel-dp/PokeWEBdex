@@ -1,3 +1,0 @@
-{
-	"*.+(js|jsx)": ["npx eslint 'src/**' --fix"]
-}
