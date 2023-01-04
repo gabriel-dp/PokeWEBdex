@@ -18,12 +18,10 @@ export const UniqueStatContainer = styled.div`
 export const StatCategory = styled.div`
 	width: 3rem;
 
-	h5 {
-		font-size: 1rem;
-		font-weight: bold;
-		color: #555;
-		text-transform: uppercase;
-	}
+	font-size: 1rem;
+	font-weight: bold;
+	color: #555;
+	text-transform: uppercase;
 `;
 
 export const StatBar = styled.div`

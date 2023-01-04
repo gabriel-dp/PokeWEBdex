@@ -7,7 +7,7 @@ function PokemonStats({ stats, children }) {
 			{stats.map((stat, index) => (
 				<UniqueStatContainer key={stats[index].name}>
 					<StatCategory>
-						<h5>{stats[index].name}</h5>
+						<span>{stats[index].name}</span>
 					</StatCategory>
 					<StatBar>
 						<StatFill percentage={(stats[index].value * 100) / 180} />

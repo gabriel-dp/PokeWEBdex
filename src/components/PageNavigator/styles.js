@@ -14,6 +14,7 @@ export const ButtonsContainer = styled.div`
 export const NavButton = styled.button`
 	width: 50%;
 	height: 2.25rem;
+	color: #333;
 	background-color: #c5c5c5;
 	border: none;
 	user-select: none;
@@ -27,9 +28,9 @@ export const NavButton = styled.button`
 		border-radius: 0 1rem 1rem 0;
 	}
 
-	opacity: ${(props) => (props.isDisabled ? 0.4 : 1)};
+	opacity: ${(props) => (props.isDisabled ? 0.8 : 1)};
+	background-color: ${(props) => (!props.isDisabled ? '#c5c5c5' : 'transparent')};
 	cursor: ${(props) => (!props.isDisabled ? 'pointer' : 'not-allowed')};
-	color: ${(props) => (!props.isDisabled ? '#333333' : '#33333377')};
 
 	@media (min-width: 688px) {
 		${(props) =>

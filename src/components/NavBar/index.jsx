@@ -14,6 +14,7 @@ function NavBar({ colors = ['#cc1100', '#8b0000'], changePageTo, setSearch }) {
 				<Link
 					to="/"
 					replace
+					aria-label="Home"
 					onClick={() => handleIconClick()}
 				>
 					<PokeballIcon />

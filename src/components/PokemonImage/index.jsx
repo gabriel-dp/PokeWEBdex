@@ -10,7 +10,12 @@ function PokemonImage({ id }) {
 	const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
 
 	if (id) {
-		return <PokeImage src={imageUrl} />;
+		return (
+			<PokeImage
+				alt={id}
+				src={imageUrl}
+			/>
+		);
 	}
 }
 
